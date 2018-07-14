@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block titulo %}Tickets{% endblock %}
+{% block menu_tarea %}class="active"{% endblock %}
+{% block body %}
+	<h1>Lista de Tickets</h1>
+	<table class="table">
+	<tr>
+		<td class="ticket head">Ticket</td>
+		<td class="descripcion head">Descripcion</td>
+		<td class="creado head">Creado</td>
+		<td class="asignado head">Asignado</td>
+		<td class="estado head">Estado</td>
+	</tr>
+	{% for ticket in tickets %}
+		<tr>
+			<td class="ticket">{{ticket.id}}</td>
+			<td class="descripcion">{{ticket.descripcion}}</td>
+			<td class="creado">{{ticket.creado}}</td>
+			<td class="asignado">{{ticket.asignado}}</td>
+			<td class="estado">{{ticket.estado}}</td>
+		</tr>
+	{% endfor %}
+	</table>
+{% endblock %}

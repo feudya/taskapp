@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block titulo %}Tareas{% endblock %}
+{% block menu_tarea %}class="active"{% endblock %}
+{% block body %}
+	<h1>Lista de Tareas</h1>
+	<table class="table">
+	<tr><td class="tarea head">Tarea</td><td class="creada head">Creada Por</td><td class="asignada head">Asignada a</td></tr>
+	{% for tarea in tareas %}
+		<tr><td class="tarea">{{tarea.description}}</td><td class="creada">{{tarea.creada}}</td><td class="asignada">{{tarea.asignada}}</td></tr>
+	{% endfor %}
+	</table>
+{% endblock %}
