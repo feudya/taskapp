@@ -49,3 +49,13 @@ form > div {
 	width: 50%;
 
 }
+
+
+.subheader{
+	float: right;
+	text-align: right;
+}
+
+#form {
+	margin: 0 auto 0 auto;
+}

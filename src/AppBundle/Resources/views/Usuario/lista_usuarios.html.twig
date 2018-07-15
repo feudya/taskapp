@@ -4,6 +4,9 @@
 {% block menu_usuario %}class="active"{% endblock %}
 {% block body %}
     <h1>Lista de Usuarios</h1>
+    <div class="subheader">
+        <a type="button" class="btn btn-primary" href="{{ path('crear_usuario') }}">Registrar Nuevo Usuario</a>
+    </div>
     <table class="table">
         <thead>
         <tr>
@@ -23,6 +26,7 @@
                 </td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
 

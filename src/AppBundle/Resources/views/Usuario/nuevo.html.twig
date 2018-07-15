@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block titulo %}Registro de Usuario{% endblock %}
+{% block menu_usuario %}class="active"{% endblock %}
+
 {% block body %}
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'validate': 'validate'}}) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
 {% endblock %}

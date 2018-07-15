@@ -2,7 +2,7 @@
 namespace AppBundle\Controller\Usuario;
 
 use AppBundle\Entity\Usuario;
-use Doctrine\DBAL\Types\TextType;
+//use Doctrine\DBAL\Types\TextType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,6 +12,9 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UsuarioController extends Controller {
 
@@ -57,39 +60,64 @@ class UsuarioController extends Controller {
             ]
         );
     }
+
     /**
-     * @Route("/rest/usuario/{id}", name="eliminar_usuario")
-     * @Method("DELETE")
+     * @Route("/usuario/{idUsuario}", name="userinfo")
      */
-    public function indexDeleteUsuario(Usuario $usuario) {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $em->remove($usuario);
-        $em->flush();
-
-        return $this->redirectToRoute('lista_usuarios');
+    public function indexUsuarioInfo($idUsuario) {
+        // dump("Estamos viendo el usuario: ". $idUsuario);
+        // die;
+        return $this->render('@App/Usuario/index.html.twig', ["idUsuario" => $idUsuario]
+        );
     }
 
-	/**
-	 * @Route("/usuario/{idUsuario}", name="userinfo")
-	 */
-	public function indexUsuarioInfo($idUsuario) {
-		// dump("Estamos viendo el usuario: ". $idUsuario);
-		// die;
-		return $this->render('@App/Usuario/index.html.twig', ["idUsuario" => $idUsuario]
-		);
-	}
+    /**
+     * @Route("/crear/usuario", name="crear_usuario")
+     */
+    public function indexNuevoUsuario (Request $request) {
+
+        // creates a task and gives it some dummy data for this example
+        $usuario = new Usuario();
+        $usuario->setNombre('');
+        $usuario->setUsername('');
+        $usuario->setEmail('');
+        $usuario->setContrasena('');
+        $usuario->setTipoUsuario('');
+
+//        $newuser->setUsername(new \DateTime('tomorrow'));
+
+        $form = $this->createFormBuilder($usuario)
+            ->add('nombre', TextType::class)
+            ->add('username', TextType::class)
+            ->add('email', TextType::class)
+            ->add('contrasena', TextType::class)
+            ->add('tipo_Usuario', TextType::class)
+            ->add('save', SubmitType::class, array('label' => 'Crear Usuario'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $usuario = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($usuario);
+            $em->flush();
+
+            return $this->redirectToRoute('lista_usuarios');
+        }
+
+        return $this->render('@App/Usuario/nuevo.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
 
 
 
 
 
 
-
-
-
-	//Restful API
+    //Restful API
 	/**
 	 * @Route("/rest/usuariog", name="buscar_usuarios")
 	 * @Method("GET")
@@ -163,24 +191,19 @@ class UsuarioController extends Controller {
 
 	}
 
-	/**
-     * $Route("/rest/usuario/crear", name="nuevo_usuario")
-     * $Method("Post")
-     * $param Request $request
+
+
+    /**
+     * @Route("/rest/usuario/{id}", name="eliminar_usuario")
+     * @Method("DELETE")
      */
-	public function nuevoUsuario(Request $request) {
-        $usuario = new Usuario();
-        $usuario->setNombre('Nuevo');
-        $usuario->setUsername('El Nuevo');
+    public function indexDeleteUsuario(Usuario $usuario) {
 
-        $form = $this->createFormBuilder($usuario)
-            ->add('nombre', TextType::class)
-            ->add('username', TextType::class)
-            ->add('save', SubmitType::class, array('label' => 'Crear Usuario'))
-            ->getForm();
+        $em = $this->getDoctrine()->getManager();
 
-        return $this->render('@App/Usuario/index.html.twig', array(
-            'form' => $form->createView(),
-        ));
+        $em->remove($usuario);
+        $em->flush();
+
+        return $this->redirectToRoute('lista_usuarios');
     }
 }
