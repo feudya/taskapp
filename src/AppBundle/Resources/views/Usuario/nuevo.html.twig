@@ -4,6 +4,11 @@
 {% block menu_usuario %}class="active"{% endblock %}
 
 {% block body %}
+    <h1>Registro de Usuario</h1>
+    <div class="subheader">
+        <a type="button" class="btn btn-danger" href="{{ path('lista_usuarios') }}">Volver</a>
+    </div>
+    <br />
     {{ form_start(form, {'attr': {'validate': 'validate'}}) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}

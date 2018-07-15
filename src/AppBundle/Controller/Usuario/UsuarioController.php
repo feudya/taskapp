@@ -7,12 +7,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -41,12 +44,65 @@ class UsuarioController extends Controller {
      * @Method("GET")
      */
     public function indexEditUsuario(Usuario $usuario) {
+//var_dump($usuario->getNombre());die;
+        $usuarioedit = new Usuario();
+        $usuarioedit->setNombre($usuario->getNombre());
+        $usuarioedit->setUsername($usuario->getUsername());
+        $usuarioedit->setEmail($usuario->getEmail());
+        $usuarioedit->setContrasena($usuario->getContrasena());
+        $usuarioedit->setTipoUsuario($usuario->getTipoUsuario());
 
-        return $this->render('@App/Usuario/editar_usuario.html.twig',
-            [
-                "usuario" => $usuario
-            ]
-        );
+//        $newuser->setUsername(new \DateTime('tomorrow'));
+
+
+        $form = $this->createFormBuilder($usuarioedit)
+            ->add('nombre', TextType::class)
+            ->add('username', TextType::class)
+            ->add('email', TextType::class)
+            ->add('contrasena', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'invalid_message' => 'Las contraseñas no concuerdan.',
+                'options' => array('attr' => array('class' => 'password-field')),
+                'required' =>true,
+                'first_options' => array('label' => 'Contraseña'),
+                'second_options' => array('label' => 'Repetir Contraseña')
+            ))
+            ->add('tipo_Usuario', ChoiceType::class, array(
+                'choices'  => array(
+                    'Técnico' => 'tecnico',
+                    'Normal' => 'normal'
+                )
+            ))
+            ->add('save', SubmitType::class, array('label' => 'Editar Usuario'))
+            ->getForm();
+
+
+
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $usuario = $form->getData();
+//
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($usuario);
+//            $em->flush();
+//
+//            return $this->redirectToRoute('lista_usuarios');
+//        }
+
+        return $this->render('@App/Usuario/editar_usuario.html.twig', array(
+            'form' => $form->createView(),
+        ));
+
+
+
+
+
+//        return $this->render('@App/Usuario/editar_usuario.html.twig',
+//            [
+//                "usuario" => $usuario
+//            ]
+//        );
     }
 
     /**
@@ -90,10 +146,24 @@ class UsuarioController extends Controller {
             ->add('nombre', TextType::class)
             ->add('username', TextType::class)
             ->add('email', TextType::class)
-            ->add('contrasena', TextType::class)
-            ->add('tipo_Usuario', TextType::class)
+            ->add('contrasena', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'invalid_message' => 'Las contraseñas no concuerdan.',
+                'options' => array('attr' => array('class' => 'password-field')),
+                'required' =>true,
+                'first_options' => array('label' => 'Contraseña'),
+                'second_options' => array('label' => 'Repetir Contraseña')
+            ))
+            ->add('tipo_Usuario', ChoiceType::class, array(
+                'choices'  => array(
+                    'Técnico' => 'tecnico',
+                    'Normal' => 'normal'
+                )
+            ))
             ->add('save', SubmitType::class, array('label' => 'Crear Usuario'))
             ->getForm();
+
+
 
         $form->handleRequest($request);
 

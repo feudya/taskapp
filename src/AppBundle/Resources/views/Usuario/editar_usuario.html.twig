@@ -4,71 +4,78 @@
 {% block menu_usuario %}class="active"{% endblock %}
 {% block body %}
     <h1>Editando Usuario</h1>
-    <form>
-        <div class="form-group">
-            <label for="nombre">Nombre</label>
-            <input class="form-control" type="text" id="nombre" value="{{ usuario.nombre }}">
-        </div>
+    <div class="subheader">
+        <a type="button" class="btn btn-danger" href="{{ path('lista_usuarios') }}">Volver</a>
+    </div>
+    <br />
+    {{ form_start(form, {'attr': {'validate': 'validate'}}) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    {#<form>#}
+        {#<div class="form-group">#}
+            {#<label for="nombre">Nombre</label>#}
+            {#<input class="form-control" type="text" id="nombre" value="{{ usuario.nombre }}">#}
+        {#</div>#}
 
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input class="form-control" type="text" id="username" value="{{ usuario.username }}">
-        </div>
+        {#<div class="form-group">#}
+            {#<label for="username">Username</label>#}
+            {#<input class="form-control" type="text" id="username" value="{{ usuario.username }}">#}
+        {#</div>#}
 
-        <div class="form-group">
-            <label for="username">Email</label>
-            <input class="form-control" type="text" id="email" value="{{ usuario.email }}">
-        </div>
+        {#<div class="form-group">#}
+            {#<label for="username">Email</label>#}
+            {#<input class="form-control" type="text" id="email" value="{{ usuario.email }}">#}
+        {#</div>#}
 
-        <div class="form-group">
-            <label for="username">Password</label>
-            <input class="form-control" type="text" id="pass" value="{{ usuario.contrasena }}">
-        </div>
+        {#<div class="form-group">#}
+            {#<label for="username">Password</label>#}
+            {#<input class="form-control" type="text" id="pass" value="{{ usuario.contrasena }}">#}
+        {#</div>#}
 
-        <div class="form-group">
-            <label for="username">Tipo</label>
-            <input class="form-control" type="text" id="tipo" value="{{ usuario.tipoUsuario }}">
-        </div>
-        <input type="hidden" value="{{ usuario.id }}" id="id">
-        <button type="button" onclick="guardar()" class="btn btn-primary">Guardar</button>
-        <a class="btn btn-danger" href="{{ path('lista_usuarios') }}">Volver</a>
-    </form>
+        {#<div class="form-group">#}
+            {#<label for="username">Tipo</label>#}
+            {#<input class="form-control" type="text" id="tipo" value="{{ usuario.tipoUsuario }}">#}
+        {#</div>#}
+        {#<input type="hidden" value="{{ usuario.id }}" id="id">#}
+        {#<button type="button" onclick="guardar()" class="btn btn-primary">Guardar</button>#}
+        {#<a class="btn btn-danger" href="{{ path('lista_usuarios') }}">Volver</a>#}
+    {#</form>#}
 
-    <script>
-        function guardar() {
-            var id = $('#id').val();
-            var nombre = $('#nombre').val();
-            var username = $('#username').val();
-            var email = $('#email').val();
-            var pass = $('#pass').val();
-            var tipo = $('#tipo').val();
+    {#<script>#}
+        {#function guardar() {#}
+            {#var id = $('#id').val();#}
+            {#var nombre = $('#nombre').val();#}
+            {#var username = $('#username').val();#}
+            {#var email = $('#email').val();#}
+            {#var pass = $('#pass').val();#}
+            {#var tipo = $('#tipo').val();#}
 
-            var data = {
-                nombre: nombre,
-                username: username,
-                email: email,
-                pass: pass,
-                tipo: tipo
-            };
+            {#var data = {#}
+                {#nombre: nombre,#}
+                {#username: username,#}
+                {#email: email,#}
+                {#pass: pass,#}
+                {#tipo: tipo#}
+            {#};#}
 
-            $.ajax({
-                dataType: 'json',
-                data: JSON.stringify(data),
-                url: '/app_dev.php/rest/usuario/' + id,
-                type: 'PUT',
-                success: function (response) {
-//                    console.log(response);
-                    window.location='/app_dev.php/usuario';
-                }                ,
-                error: function (err) {
-                    console.log(err);
-                }
-            });
+            {#$.ajax({#}
+                {#dataType: 'json',#}
+                {#data: JSON.stringify(data),#}
+                {#url: '/app_dev.php/rest/usuario/' + id,#}
+                {#type: 'PUT',#}
+                {#success: function (response) {#}
+{#//                    console.log(response);#}
+                    {#window.location='/app_dev.php/usuario';#}
+                {#}                ,#}
+                {#error: function (err) {#}
+                    {#console.log(err);#}
+                {#}#}
+            {#});#}
 
 
-//            alert(username);
+{#//            alert(username);#}
 
-        }
-    </script>
+        {#}#}
+    {#</script>#}
 
 {% endblock %}
