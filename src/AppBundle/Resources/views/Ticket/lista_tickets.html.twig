@@ -1,8 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block titulo %}Tickets{% endblock %}
-{% block menu_tarea %}class="active"{% endblock %}
+{% block menu_ticket %}class="active"{% endblock %}
 {% block body %}
 	<h1>Lista de Tickets</h1>
+	<div class="subheader">
+		<a type="button" class="btn btn-primary" href="{{ path('crear_ticket') }}">Registrar Nuevo Ticket</a>
+	</div>
+	<div style="clear: both;"></div>
+	<br />
 	<table class="table">
 	<tr>
 		<td class="ticket head">Ticket</td>
@@ -10,14 +15,18 @@
 		<td class="creado head">Creado</td>
 		<td class="asignado head">Asignado</td>
 		<td class="estado head">Estado</td>
+		<td class="acciones head">Acciones</td>
 	</tr>
-	{% for ticket in tickets %}
+	{% for ticket in ticket %}
 		<tr>
 			<td class="ticket">{{ticket.id}}</td>
 			<td class="descripcion">{{ticket.descripcion}}</td>
 			<td class="creado">{{ticket.creado}}</td>
 			<td class="asignado">{{ticket.asignado}}</td>
 			<td class="estado">{{ticket.estado}}</td>
+			<td class="acciones">
+				<a type="button" class="btn btn-primary" href="{{ path('ticket_info', { 'id' : ticket.id }) }}">Ver</a>
+			</td>
 		</tr>
 	{% endfor %}
 	</table>

@@ -59,3 +59,18 @@ form > div {
 #form {
 	margin: 0 auto 0 auto;
 }
+
+.left {
+	text-align: left;
+}
+
+.full-width {
+	width: 100%;
+}
+.panel-heading > .panel-body {
+	float: left;
+	width: 300px;
+}
+.center {
+	text-align: center;
+}

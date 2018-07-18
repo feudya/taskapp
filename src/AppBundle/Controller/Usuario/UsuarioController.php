@@ -18,8 +18,41 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Forms\UsuarioForm\UsuarioForms;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UsuarioController extends Controller {
+
+
+
+
+    /**
+     * @Route("/login", name="login")
+     */
+    public function loginAction(Request $request, AuthenticationUtils $authenticationUtils)
+    {
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('@App/Usuario/Security/login.html.twig', array(
+            'last_username' => $lastUsername,
+            'error'         => $error,
+        ));
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction(Request $request)
+    {
+
+    }
+
+
+
 
 	/**
 	 * @Route("/usuario", name="lista_usuarios")
@@ -40,11 +73,11 @@ class UsuarioController extends Controller {
 		);
 	}
     /**
-     * @Route("/usuario/{id}", name="editar_usuario")
-     * @Method("GET")
+     * @Route("/usuario/{id}/edit", name="editar_usuario")
      */
-    public function indexEditUsuario(Usuario $usuario) {
+    public function indexEditUsuario(Request $request, Usuario $usuario) {
 //var_dump($usuario->getNombre());die;
+//        var_dump($usuario);die;
         $usuarioedit = new Usuario();
         $usuarioedit->setNombre($usuario->getNombre());
         $usuarioedit->setUsername($usuario->getUsername());
@@ -52,10 +85,7 @@ class UsuarioController extends Controller {
         $usuarioedit->setContrasena($usuario->getContrasena());
         $usuarioedit->setTipoUsuario($usuario->getTipoUsuario());
 
-//        $newuser->setUsername(new \DateTime('tomorrow'));
-
-
-        $form = $this->createFormBuilder($usuarioedit)
+        $formedit = $this->createFormBuilder($usuarioedit)
             ->add('nombre', TextType::class)
             ->add('username', TextType::class)
             ->add('email', TextType::class)
@@ -73,25 +103,23 @@ class UsuarioController extends Controller {
                     'Normal' => 'normal'
                 )
             ))
-            ->add('save', SubmitType::class, array('label' => 'Editar Usuario'))
+            ->add('save', SubmitType::class, array('label' => 'Guardar Cambios'))
             ->getForm();
 
+        $formedit->handleRequest($request);
 
+        if ($formedit->isSubmitted() && $formedit->isValid()) {
+            $usuarioedit = $formedit->getData();
 
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $usuario = $form->getData();
-//
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($usuario);
-//            $em->flush();
-//
-//            return $this->redirectToRoute('lista_usuarios');
-//        }
+            $em = $this->getDoctrine()->getManager();
+//            $em->persist($usuarioedit);
+            $em->flush();
+
+            return $this->redirectToRoute('lista_usuarios');
+        }
 
         return $this->render('@App/Usuario/editar_usuario.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $formedit->createView(),
         ));
 
 
@@ -140,8 +168,6 @@ class UsuarioController extends Controller {
         $usuario->setContrasena('');
         $usuario->setTipoUsuario('');
 
-//        $newuser->setUsername(new \DateTime('tomorrow'));
-
         $form = $this->createFormBuilder($usuario)
             ->add('nombre', TextType::class)
             ->add('username', TextType::class)
@@ -161,9 +187,7 @@ class UsuarioController extends Controller {
                 )
             ))
             ->add('save', SubmitType::class, array('label' => 'Crear Usuario'))
-            ->getForm();
-
-
+                        ->getForm();
 
         $form->handleRequest($request);
 

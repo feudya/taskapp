@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block titulo %}Informacion de Ticket{% endblock %}
+{% block menu_ticket %}class="active"{% endblock %}
+
+{% block body %}
+<h1>Informacion de Ticket</h1>
+<div class="subheader">
+    <a type="button" class="btn btn-danger" href="{{ path('lista_tickets') }}">Volver</a>
+</div>
+<br />
+    <div class="panel-heading full-width left">
+        <div class="panel-body left">
+            <h5>Asignación: #{{ ticketinfo.id }}</h5>
+        </div>
+        <div class="panel-body left">
+            <h5>Fecha Creado: {{ ticketinfo.creado }}</h5>
+        </div>
+        <div class="panel-body left">
+            <h5>Fecha Cerrado: {{ ticketinfo.cerrado }}</h5>
+        </div>
+        <div class="panel-body left">
+            <h5>Estado: {{ ticketinfo.estado }}</h5>
+        </div>
+        <br />
+        <div style="clear: both;"></div>
+        <div class="center">
+            <h4>Asignado A: {{ ticketinfo.asignado }}</h4>
+        </div>
+    </div>
+    <br />
+    <div class="panel-primary">
+        <div class="left">
+            <h4>Solicitado Por: {{ ticketinfo.usuario }}</h4>
+        </div>
+        <br />
+        <div class="left">
+            <h4>Descripcion:</h4> <p>{{ ticketinfo.descripcion }}</p>
+        </div>
+
+    </div>
+
+{% endblock %}

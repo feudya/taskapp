@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TareaController extends Controller {
 	/**
-	 * @Route("/tickets", name="lista_tickets") ///no puede teener el mismo name que otro
+	 * @Route("/tareas", name="lista_tareas") ///no puede teener el mismo name que otro
 	 */
 	public function indexTarea() {
 

@@ -122,33 +122,50 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         }
         not_homepage:
 
-        // lista_tickets
-        if ('/tickets' === $pathinfo) {
-            return array (  '_controller' => 'AppBundle\\Controller\\Tarea\\TareaController::indexTarea',  '_route' => 'lista_tickets',);
+        if (0 === strpos($pathinfo, '/t')) {
+            if (0 === strpos($pathinfo, '/tareas')) {
+                // lista_tareas
+                if ('/tareas' === $pathinfo) {
+                    return array (  '_controller' => 'AppBundle\\Controller\\Tarea\\TareaController::indexTarea',  '_route' => 'lista_tareas',);
+                }
+
+                // taskinfo
+                if (preg_match('#^/tareas/(?P<idTarea>[^/]++)$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'taskinfo')), array (  '_controller' => 'AppBundle\\Controller\\Tarea\\TareaController::indexTareaInfo',));
+                }
+
+            }
+
+            elseif (0 === strpos($pathinfo, '/tickets')) {
+                // lista_tickets
+                if ('/tickets' === $pathinfo) {
+                    return array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::indexTicket',  '_route' => 'lista_tickets',);
+                }
+
+                // ticket_info
+                if (preg_match('#^/tickets/(?P<id>[^/]++)/ver$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'ticket_info')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::indexTicketInfo',));
+                }
+
+            }
+
+            // crear_ticket
+            if ('/ticket/nuevo' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::nuevoTicket',  '_route' => 'crear_ticket',);
+            }
+
         }
 
-        // taskinfo
-        if (0 === strpos($pathinfo, '/tareas') && preg_match('#^/tareas/(?P<idTarea>[^/]++)$#sD', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'taskinfo')), array (  '_controller' => 'AppBundle\\Controller\\Tarea\\TareaController::indexTareaInfo',));
-        }
-
-        if (0 === strpos($pathinfo, '/usuario')) {
+        elseif (0 === strpos($pathinfo, '/usuario')) {
             // lista_usuarios
             if ('/usuario' === $pathinfo) {
                 return array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexUsuario',  '_route' => 'lista_usuarios',);
             }
 
             // editar_usuario
-            if (preg_match('#^/usuario/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
-                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'editar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexEditUsuario',));
-                if (!in_array($canonicalMethod, array('GET'))) {
-                    $allow = array_merge($allow, array('GET'));
-                    goto not_editar_usuario;
-                }
-
-                return $ret;
+            if (preg_match('#^/usuario/(?P<id>[^/]++)/edit$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'editar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexEditUsuario',));
             }
-            not_editar_usuario:
 
             // valida_eliminar_usuario
             if (preg_match('#^/usuario/(?P<id>[^/]++)/remove$#sD', $pathinfo, $matches)) {
@@ -231,6 +248,24 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
             not_eliminar_usuario:
 
+        }
+
+        elseif (0 === strpos($pathinfo, '/login')) {
+            // login
+            if ('/login' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle:Usuario',  '_route' => 'login',);
+            }
+
+            // login_check
+            if ('/login' === $pathinfo) {
+                return array('_route' => 'login_check');
+            }
+
+        }
+
+        // logout
+        if ('/logout' === $pathinfo) {
+            return array('_route' => 'logout');
         }
 
         if ('/' === $pathinfo && !$allow) {

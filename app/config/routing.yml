@@ -1,3 +1,11 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+login:
+    path:     /login
+    defaults: { _controller: AppBundle:Usuario }
+
+login_check:
+    path: /login
+logout:
+    path: /logout

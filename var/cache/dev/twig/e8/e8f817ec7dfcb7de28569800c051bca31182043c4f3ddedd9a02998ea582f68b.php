@@ -18,7 +18,7 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
             'stylesheets' => array($this, 'block_stylesheets'),
             'navigation' => array($this, 'block_navigation'),
             'menu_usuario' => array($this, 'block_menu_usuario'),
-            'menu_tarea' => array($this, 'block_menu_tarea'),
+            'menu_ticket' => array($this, 'block_menu_ticket'),
             'body' => array($this, 'block_body'),
             'javascript' => array($this, 'block_javascript'),
         );
@@ -48,23 +48,23 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
 \t\t";
         // line 10
         $this->displayBlock('stylesheets', $context, $blocks);
-        // line 14
+        // line 15
         echo "\t</head>
 \t<body>
 \t\t";
-        // line 16
+        // line 17
         $this->displayBlock('navigation', $context, $blocks);
-        // line 38
+        // line 39
         echo "\t\t<div class=\"starter-template\">
 \t\t\t";
-        // line 39
-        $this->displayBlock('body', $context, $blocks);
         // line 40
+        $this->displayBlock('body', $context, $blocks);
+        // line 41
         echo "\t\t</div>
 \t\t";
-        // line 41
+        // line 42
         $this->displayBlock('javascript', $context, $blocks);
-        // line 45
+        // line 46
         echo "\t\t<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 \t\t<!-- Include all compiled plugins (below), or include individual files as needed -->
 \t</body>
@@ -111,6 +111,10 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
         // line 12
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/css/starter-template.css"), "html", null, true);
         echo "\" rel=\"stylesheet\">
+\t\t\t<link rel=\"stylesheet\" href=\"";
+        // line 13
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/font-awesome/css/font-awesome.min.css"), "html", null, true);
+        echo "\" rel=\"stylesheet\">
 \t\t";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -120,7 +124,7 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
 
     }
 
-    // line 16
+    // line 17
     public function block_navigation($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -129,7 +133,7 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "navigation"));
 
-        // line 17
+        // line 18
         echo "\t\t\t<nav class=\"navbar navbar-inverse navbar-fixed-top\">
 \t\t\t\t<div class=\"container\">
 \t\t\t\t\t<div class=\"navbar-header\">
@@ -140,21 +144,21 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
 \t\t\t\t\t\t<span class=\"icon-bar\"></span>
 \t\t\t\t\t\t</button>
 \t\t\t\t\t\t<a class=\"navbar-brand\" href=\"";
-        // line 26
+        // line 27
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("homepage");
         echo "\">TaskApp</a>
 \t\t\t\t\t</div>
 \t\t\t\t\t<div id=\"navbar\" class=\"collapse navbar-collapse\">
 \t\t\t\t\t\t<ul class=\"nav navbar-nav\">
 \t\t\t\t\t\t\t<li ";
-        // line 30
+        // line 31
         $this->displayBlock('menu_usuario', $context, $blocks);
         echo "><a href=\"";
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("lista_usuarios");
         echo "\">Usuarios</a></li>
 \t\t\t\t\t\t\t<li ";
-        // line 31
-        $this->displayBlock('menu_tarea', $context, $blocks);
+        // line 32
+        $this->displayBlock('menu_ticket', $context, $blocks);
         echo "><a href=\"";
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("lista_tickets");
         echo "\">Tickets</a></li>
@@ -172,7 +176,7 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
 
     }
 
-    // line 30
+    // line 31
     public function block_menu_usuario($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -189,14 +193,14 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
 
     }
 
-    // line 31
-    public function block_menu_tarea($context, array $blocks = array())
+    // line 32
+    public function block_menu_ticket($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
-        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->enter($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu_tarea"));
+        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->enter($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu_ticket"));
 
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu_tarea"));
+        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu_ticket"));
 
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -206,7 +210,7 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
 
     }
 
-    // line 39
+    // line 40
     public function block_body($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -224,7 +228,7 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
 
     }
 
-    // line 41
+    // line 42
     public function block_javascript($context, array $blocks = array())
     {
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
@@ -233,12 +237,12 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "javascript"));
 
-        // line 42
+        // line 43
         echo "\t\t\t<script src=\"";
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/js/jquery.min.js"), "html", null, true);
         echo "\"></script>
 \t\t\t<script src=\"";
-        // line 43
+        // line 44
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/js/bootstrap.min.js"), "html", null, true);
         echo "\"></script>
 \t\t";
@@ -257,7 +261,7 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
 
     public function getDebugInfo()
     {
-        return array (  242 => 43,  237 => 42,  228 => 41,  210 => 39,  193 => 31,  176 => 30,  157 => 31,  151 => 30,  144 => 26,  133 => 17,  124 => 16,  112 => 12,  107 => 11,  98 => 10,  81 => 8,  68 => 45,  66 => 41,  63 => 40,  61 => 39,  58 => 38,  56 => 16,  52 => 14,  50 => 10,  45 => 8,  36 => 1,);
+        return array (  246 => 44,  241 => 43,  232 => 42,  214 => 40,  197 => 32,  180 => 31,  161 => 32,  155 => 31,  148 => 27,  137 => 18,  128 => 17,  116 => 13,  112 => 12,  107 => 11,  98 => 10,  81 => 8,  68 => 46,  66 => 42,  63 => 41,  61 => 40,  58 => 39,  56 => 17,  52 => 15,  50 => 10,  45 => 8,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -274,6 +278,7 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
 \t\t{% block stylesheets %}
 \t\t\t<link href=\"{{ asset('assets/css/bootstrap.min.css') }}\" rel=\"stylesheet\">
 \t\t\t<link href=\"{{ asset('assets/css/starter-template.css') }}\" rel=\"stylesheet\">
+\t\t\t<link rel=\"stylesheet\" href=\"{{ asset('assets/font-awesome/css/font-awesome.min.css') }}\" rel=\"stylesheet\">
 \t\t{% endblock %}
 \t</head>
 \t<body>
@@ -292,7 +297,7 @@ class __TwigTemplate_c750602edc9fdf31581cc54b55f2da0b31a9479b6c7fb2fe405bdaa0ee7
 \t\t\t\t\t<div id=\"navbar\" class=\"collapse navbar-collapse\">
 \t\t\t\t\t\t<ul class=\"nav navbar-nav\">
 \t\t\t\t\t\t\t<li {% block menu_usuario %}{% endblock %}><a href=\"{{ path('lista_usuarios') }}\">Usuarios</a></li>
-\t\t\t\t\t\t\t<li {% block menu_tarea %}{% endblock %}><a href=\"{{ path('lista_tickets')}}\">Tickets</a></li>
+\t\t\t\t\t\t\t<li {% block menu_ticket %}{% endblock %}><a href=\"{{ path('lista_tickets')}}\">Tickets</a></li>
 \t\t\t\t\t\t</ul>
 \t\t\t\t\t\t</div><!--/.nav-collapse -->
 \t\t\t\t\t</div>
