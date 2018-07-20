@@ -107,6 +107,11 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
+        // login
+        if ('/login' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::loginAction',  '_route' => 'login',);
+        }
+
         // homepage
         if ('' === $trimmedPathinfo) {
             $ret = array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
@@ -248,24 +253,6 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
             not_eliminar_usuario:
 
-        }
-
-        elseif (0 === strpos($pathinfo, '/login')) {
-            // login
-            if ('/login' === $pathinfo) {
-                return array (  '_controller' => 'AppBundle:Usuario',  '_route' => 'login',);
-            }
-
-            // login_check
-            if ('/login' === $pathinfo) {
-                return array('_route' => 'login_check');
-            }
-
-        }
-
-        // logout
-        if ('/logout' === $pathinfo) {
-            return array('_route' => 'logout');
         }
 
         if ('/' === $pathinfo && !$allow) {

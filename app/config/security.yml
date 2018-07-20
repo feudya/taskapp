@@ -9,7 +9,7 @@ security:
     providers:
         our_db_provider:
             entity:
-                class: AppBundle:Ususario
+                class: AppBundle:Usuario
                 property: username
 
     firewalls:
@@ -23,8 +23,8 @@ security:
             anonymous: ~
             provider: our_db_provider
             form_login:
-                login_path: /login
-                check_path: /login
+                login_path: login
+                check_path: login
                 default_target_path: lista_tickets
                 always_use_default_target_path: true
             logout:
@@ -33,7 +33,7 @@ security:
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
+#            http_basic: ~
 
             # https://symfony.com/doc/current/security/form_login_setup.html
 #            form_login: login

@@ -214,6 +214,7 @@ class Usuario implements UserInterface
      */
     public function getSalt()
     {
+        return null;
         // TODO: Implement getSalt() method.
     }
 
