@@ -540,7 +540,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.jwm2ikb"/>
+      <argument type="service" id="service_locator.w8kx.dr"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -2113,10 +2113,7 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="security.authentication.manager" class="Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager" public="false">
-      <argument type="iterator">
-        <argument type="service" id="security.authentication.provider.dao.main"/>
-        <argument type="service" id="security.authentication.provider.anonymous.main"/>
-      </argument>
+      <argument type="iterator"/>
       <argument>true</argument>
       <call method="setEventDispatcher">
         <argument type="service" id="debug.event_dispatcher"/>
@@ -2167,10 +2164,9 @@
       <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
     </service>
     <service id="security.firewall.map" class="Symfony\Bundle\SecurityBundle\Security\FirewallMap" public="false">
-      <argument type="service" id="service_locator.uctj.hf"/>
+      <argument type="service" id="service_locator.fhqig_w"/>
       <argument type="iterator">
         <argument key="security.firewall.map.context.dev" type="service" id="security.request_matcher.zfhj2lw"/>
-        <argument key="security.firewall.map.context.main">null</argument>
       </argument>
     </service>
     <service id="security.firewall.context" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext" abstract="true">
@@ -2197,14 +2193,6 @@
       <argument type="service" id="request_stack" on-invalid="null"/>
       <argument type="service" id="router.default" on-invalid="null"/>
       <argument type="service" id="security.token_storage" on-invalid="null"/>
-      <call method="registerListener">
-        <argument>main</argument>
-        <argument>logout</argument>
-        <argument>logout</argument>
-        <argument>_csrf_token</argument>
-        <argument>null</argument>
-        <argument>null</argument>
-      </call>
     </service>
     <service id="security.user.provider.in_memory" class="Symfony\Component\Security\Core\User\InMemoryUserProvider" public="false" abstract="true"/>
     <service id="security.user.provider.in_memory.user" class="Symfony\Component\Security\Core\User\User" public="false" abstract="true"/>
@@ -2251,7 +2239,29 @@
       <argument type="service" id="security.authentication.retry_entry_point"/>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
     </service>
-    <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap" public="false"/>
+    <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap" public="false">
+      <call method="add">
+        <argument type="service" id="security.request_matcher.33jzefw"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id="security.request_matcher.bjnivid"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_FULLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id="security.request_matcher.1iljuiz"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_FULLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+    </service>
     <service id="security.context_listener" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
       <tag name="monolog.logger" channel="security"/>
       <argument type="service" id="security.token_storage"/>
@@ -2586,160 +2596,20 @@
       <argument>null</argument>
       <argument type="service" id="security.firewall.map.config.dev"/>
     </service>
-    <service id="security.firewall.map.config.main" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig" public="false">
-      <argument>main</argument>
-      <argument>security.user_checker</argument>
-      <argument>null</argument>
-      <argument>true</argument>
-      <argument>false</argument>
-      <argument>security.user.provider.concrete.our_db_provider</argument>
-      <argument>main</argument>
-      <argument>security.authentication.form_entry_point.main</argument>
-      <argument>null</argument>
-      <argument>null</argument>
-      <argument type="collection">
-        <argument>form_login</argument>
-        <argument>anonymous</argument>
-      </argument>
-      <argument>null</argument>
-    </service>
-    <service id="security.context_listener.0" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
-      <argument type="service" id="security.token_storage"/>
-      <argument type="iterator">
-        <argument type="service" id="security.user.provider.concrete.our_db_provider"/>
-      </argument>
-      <argument>main</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
-      <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
-      <argument type="service" id="security.authentication.trust_resolver"/>
-      <call method="setLogoutOnUserChange">
-        <argument>false</argument>
-      </call>
-    </service>
-    <service id="security.logout_listener.main" class="Symfony\Component\Security\Http\Firewall\LogoutListener" public="false">
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="security.http_utils"/>
-      <argument type="service" id="security.logout.success_handler.main"/>
-      <argument type="collection">
-        <argument key="csrf_parameter">_csrf_token</argument>
-        <argument key="csrf_token_id">logout</argument>
-        <argument key="logout_path">logout</argument>
-      </argument>
-      <call method="addHandler">
-        <argument type="service" id="security.logout.handler.csrf_token_clearing"/>
-      </call>
-      <call method="addHandler">
-        <argument type="service" id="security.logout.handler.session"/>
-      </call>
-    </service>
-    <service id="security.logout.success_handler.main" class="Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler" public="false">
-      <argument type="service" id="security.http_utils"/>
-      <argument>/</argument>
-    </service>
-    <service id="security.authentication.provider.dao.main" class="Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider" public="false">
-      <argument type="service" id="security.user.provider.concrete.our_db_provider"/>
-      <argument type="service" id="security.user_checker"/>
-      <argument>main</argument>
-      <argument type="service" id="security.encoder_factory.generic"/>
-      <argument>true</argument>
-    </service>
-    <service id="security.authentication.success_handler.main.form_login" class="Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler" public="false">
-      <argument type="service" id="security.http_utils"/>
-      <argument type="collection"/>
-      <call method="setOptions">
-        <argument type="collection">
-          <argument key="login_path">login</argument>
-          <argument key="default_target_path">lista_tickets</argument>
-          <argument key="always_use_default_target_path">true</argument>
-          <argument key="target_path_parameter">_target_path</argument>
-          <argument key="use_referer">false</argument>
-        </argument>
-      </call>
-      <call method="setProviderKey">
-        <argument>main</argument>
-      </call>
-    </service>
-    <service id="security.authentication.failure_handler.main.form_login" class="Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler" public="false">
-      <argument type="service" id="http_kernel"/>
-      <argument type="service" id="security.http_utils"/>
-      <argument type="collection"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
-      <call method="setOptions">
-        <argument type="collection">
-          <argument key="login_path">login</argument>
-          <argument key="failure_path">null</argument>
-          <argument key="failure_forward">false</argument>
-          <argument key="failure_path_parameter">_failure_path</argument>
-        </argument>
-      </call>
-    </service>
-    <service id="security.authentication.listener.form.main" class="Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener" public="false">
-      <tag name="security.remember_me_aware" id="main" provider="security.user.provider.concrete.our_db_provider"/>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="security.authentication.manager"/>
-      <argument type="service" id="security.authentication.session_strategy"/>
-      <argument type="service" id="security.http_utils"/>
-      <argument>main</argument>
-      <argument type="service" id="security.authentication.success_handler.main.form_login"/>
-      <argument type="service" id="security.authentication.failure_handler.main.form_login"/>
-      <argument type="collection">
-        <argument key="check_path">login</argument>
-        <argument key="use_forward">false</argument>
-        <argument key="require_previous_session">false</argument>
-        <argument key="username_parameter">_username</argument>
-        <argument key="password_parameter">_password</argument>
-        <argument key="csrf_parameter">_csrf_token</argument>
-        <argument key="csrf_token_id">authenticate</argument>
-        <argument key="post_only">true</argument>
-      </argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
-      <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
-      <argument>null</argument>
-    </service>
-    <service id="security.authentication.form_entry_point.main" class="Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint" public="false">
-      <argument type="service" id="http_kernel"/>
-      <argument type="service" id="security.http_utils"/>
-      <argument>login</argument>
-      <argument>false</argument>
-    </service>
-    <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
-      <argument type="service" id="security.token_storage"/>
-      <argument>%container.build_hash%</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
-      <argument type="service" id="security.authentication.manager"/>
-    </service>
-    <service id="security.authentication.provider.anonymous.main" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>%container.build_hash%</argument>
-    </service>
-    <service id="security.exception_listener.main" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="security.authentication.trust_resolver"/>
-      <argument type="service" id="security.http_utils"/>
-      <argument>main</argument>
-      <argument type="service" id="security.authentication.form_entry_point.main"/>
-      <argument>null</argument>
-      <argument>null</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
-      <argument>false</argument>
-    </service>
-    <service id="security.firewall.map.context.main" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
-      <argument type="iterator">
-        <argument type="service" id="security.channel_listener"/>
-        <argument type="service" id="security.context_listener.0"/>
-        <argument type="service" id="security.authentication.listener.form.main"/>
-        <argument type="service" id="security.authentication.listener.anonymous.main"/>
-        <argument type="service" id="security.access_listener"/>
-      </argument>
-      <argument type="service" id="security.exception_listener.main"/>
-      <argument type="service" id="security.logout_listener.main"/>
-      <argument type="service" id="security.firewall.map.config.main"/>
-    </service>
-    <service id="service_locator.uctj.hf" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.fhqig_w" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="security.firewall.map.context.dev" type="service" id="security.firewall.map.context.dev"/>
-        <argument key="security.firewall.map.context.main" type="service" id="security.firewall.map.context.main"/>
       </argument>
+    </service>
+    <service id="security.request_matcher.33jzefw" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/login</argument>
+    </service>
+    <service id="security.request_matcher.bjnivid" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/usuario</argument>
+    </service>
+    <service id="security.request_matcher.1iljuiz" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/ticket</argument>
     </service>
     <service id="security.command.user_password_encoder" class="Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand" public="false">
       <tag name="console.command" command="security:encode-password"/>
@@ -3835,19 +3705,35 @@
         <argument key="authenticationUtils" type="service" id="security.authentication_utils" on-invalid="ignore"/>
       </argument>
     </service>
-    <service id="service_locator.ixrtvj0" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.bakvljh" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
+    </service>
+    <service id="service_locator.tzdfprz" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="encoder" type="service" id="security.user_password_encoder.generic" on-invalid="ignore"/>
+      </argument>
     </service>
     <service id="service_locator.te_jq7w" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
-    <service id="service_locator.jwm2ikb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.yswu2ul" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="encoder" type="service" id="security.user_password_encoder.generic" on-invalid="ignore"/>
+      </argument>
+    </service>
+    <service id="service_locator.w8kx.dr" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="AppBundle\Controller\DefaultController:loginAction" type="service" id="service_locator.iud7pdy"/>
+        <argument key="AppBundle\Controller\Usuario\UsuarioController:indexEditUsuario" type="service" id="service_locator.tzdfprz"/>
+        <argument key="AppBundle\Controller\Usuario\UsuarioController:indexNuevoUsuario" type="service" id="service_locator.yswu2ul"/>
         <argument key="AppBundle\Controller\DefaultController::loginAction" type="service" id="service_locator.iud7pdy"/>
+        <argument key="AppBundle\Controller\Usuario\UsuarioController::indexEditUsuario" type="service" id="service_locator.tzdfprz"/>
+        <argument key="AppBundle\Controller\Usuario\UsuarioController::indexNuevoUsuario" type="service" id="service_locator.yswu2ul"/>
       </argument>
     </service>
     <service id="service_locator.w7xlwgx" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -4272,8 +4158,6 @@
     <service id="Symfony\Component\Security\Http\Firewall" alias="debug.security.firewall" public="false"/>
     <service id="Symfony\Component\Security\Guard\GuardAuthenticatorHandler" alias="security.authentication.guard_handler" public="false"/>
     <service id="security.firewall" alias="debug.security.firewall"/>
-    <service id="security.authentication.session_strategy.main" alias="security.authentication.session_strategy"/>
-    <service id="security.user_checker.main" alias="security.user_checker" public="false"/>
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker" public="false"/>
     <service id="Twig_Environment" alias="twig" public="false"/>
     <service id="Twig\Environment" alias="twig" public="false"/>

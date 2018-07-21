@@ -9,6 +9,7 @@
 namespace AppBundle\Controller\Ticket;
 
 use AppBundle\Entity\Ticket;
+use AppBundle\Entity\Usuario;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,36 +46,50 @@ class TicketC extends Controller {
     /**
      * @Route("/tickets/{id}/ver", name="ticket_info")
      * Method("GET")
+     * @param Ticket $ticket
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexTicketInfo(Ticket $ticketc)
+    public function indexTicketInfo(Ticket $ticket)
     {
-        $id = $ticketc->getId();
 
-        $sql = '
-		SELECT t.*, uc.nombre as creado, ua.nombre as asignado FROM ticket t
-		JOIN usuario as uc on uc.id = t.usuario_id
-		JOIN usuario as ua on ua.id = t.usuario_asignado_id
-  		WHERE t.id = ' . $id . ';
-		';
+//        var_dump($ticket);
+//        var_dump($ticket->getUsuarioAsignadoId());
+
         $em = $this->getDoctrine()->getManager();
-        $conn = $em->getConnection();
+        $usuarioid = $ticket->getUsuario();
+        $usuarioasignaid = $ticket->getUsuarioAsignadoId();
+        $usuario = $em->getRepository(Usuario::class)->find($usuarioid);
+        $usuariocrea = $usuario->getNombre();
+        $usuario = $em->getRepository(Usuario::class)->find($usuarioasignaid);
+        $usuarioasignado = $usuario->getNombre();
 
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $ticket = $stmt->fetchAll();
-        $ticket = $ticket[0];
+//        $ticket->add('usuariocrea', TextType::class);
+//        $ticket->setUsuariocrea($usuariocrea);
 
-        $ticketinfo = array(
-            'id'=> $ticket['id'],
-            'usuario'=> $ticket['creado'],
-            'asignado'=> $ticket['asignado'],
-            'descripcion'=> $ticket['descripcion'],
-            'creado'=> $ticket['fecha_creado'],
-            'cerrado'=> $ticket['fecha_completado'],
-            'estado'=> $ticket['estado']
-        );
-//var_dump($ticketinfo);die;
-        return $this->render('@App/Ticket/index.html.twig', ["ticketinfo"=> $ticketinfo] );
+//        var_dump($ticket);
+        //        $conn = $em->getConnection();
+
+//        $stmt = $conn->prepare($sql);
+//        $stmt->execute();
+//        $ticket = $stmt->fetchAll();
+//        $ticket = $em->getRepository(Ticket::class)->find($id);
+//        $ticket = $ticket[0];
+//        var_dump($ticket);die;
+//        $ticketinfo = array(
+//            'id'=> $ticket['id'],
+//            'usuario'=> $ticket['creado'],
+//            'asignado'=> $ticket['asignado'],
+//            'descripcion'=> $ticket['descripcion'],
+//            'creado'=> $ticket['fecha_creado'],
+//            'cerrado'=> $ticket['fecha_completado'],
+//            'estado'=> $ticket['estado']
+//        );
+//var_dump($ticket);
+        return $this->render('@App/Ticket/index.html.twig', array(
+                "ticket" => $ticket,
+                "usuariocrea" => $usuariocrea,
+                "usuarioasigna" => $usuarioasignado
+        ));
 //        return $this->render('@App/Ticket/index.html.twig', array(
 //            'form' => $form->createView(),
 //        ));

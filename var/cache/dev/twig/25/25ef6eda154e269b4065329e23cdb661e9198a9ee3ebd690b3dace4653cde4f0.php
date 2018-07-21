@@ -130,7 +130,7 @@ class __TwigTemplate_01682f45af99e3237b063bf073abc0cba492c004027e2522149a0fe79d3
                 }                ,
                 error: function (err) {
                     console.log(err);
-                    alert(\"que te creias papá\")
+//                    alert(\"que te creias papá\")
                 }
             });
         }
@@ -196,7 +196,7 @@ class __TwigTemplate_01682f45af99e3237b063bf073abc0cba492c004027e2522149a0fe79d3
                 }                ,
                 error: function (err) {
                     console.log(err);
-                    alert(\"que te creias papá\")
+//                    alert(\"que te creias papá\")
                 }
             });
         }

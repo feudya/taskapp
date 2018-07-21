@@ -11,31 +11,31 @@
 <br />
     <div class="panel-heading full-width left">
         <div class="panel-body left">
-            <h5>Asignación: #{{ ticketinfo.id }}</h5>
+            <h5>Asignación: #{{ ticket.id }}</h5>
         </div>
         <div class="panel-body left">
-            <h5>Fecha Creado: {{ ticketinfo.creado }}</h5>
+            <h5>Fecha Creado: {{ ticket.fechaCreado|date("m/d/Y") }}</h5>
         </div>
         <div class="panel-body left">
-            <h5>Fecha Cerrado: {{ ticketinfo.cerrado }}</h5>
+            <h5>Fecha Cerrado: {{ ticket.fechaCompletado|date("m/d/Y") }}</h5>
         </div>
         <div class="panel-body left">
-            <h5>Estado: {{ ticketinfo.estado }}</h5>
+            <h5>Estado: {{ ticket.estado }}</h5>
         </div>
         <br />
         <div style="clear: both;"></div>
         <div class="center">
-            <h4>Asignado A: {{ ticketinfo.asignado }}</h4>
+            <h4>Asignado A: {{ usuarioasigna }}</h4>
         </div>
     </div>
     <br />
     <div class="panel-primary">
         <div class="left">
-            <h4>Solicitado Por: {{ ticketinfo.usuario }}</h4>
+            <h4>Solicitado Por: {{ usuariocrea }}</h4>
         </div>
         <br />
         <div class="left">
-            <h4>Descripcion:</h4> <p>{{ ticketinfo.descripcion }}</p>
+            <h4>Descripcion:</h4> <p>{{ ticket.descripcion }}</p>
         </div>
 
     </div>

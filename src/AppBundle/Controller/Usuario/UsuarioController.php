@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Forms\UsuarioForm\UsuarioForms;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 
@@ -33,7 +34,7 @@ class UsuarioController extends Controller {
 		$usuarios = $this->getDoctrine()
 			->getRepository(Usuario::class)
 			->findAll();
-
+//var_dump( app.user });
 		return $this->render('@App/Usuario/lista_usuarios.html.twig', ["usuarios" => $usuarios]
 			///////////////////////////////
 			// dump("aqui estamos");
@@ -46,7 +47,7 @@ class UsuarioController extends Controller {
     /**
      * @Route("/usuario/{id}/edit", name="editar_usuario")
      */
-    public function indexEditUsuario(Request $request, Usuario $usuario) {
+    public function indexEditUsuario(Request $request, Usuario $usuario, UserPasswordEncoderInterface $encoder) {
 //var_dump($usuario->getNombre());die;
 //        var_dump($usuario);die;
         $usuarioedit = new Usuario();
@@ -80,10 +81,21 @@ class UsuarioController extends Controller {
         $formedit->handleRequest($request);
 
         if ($formedit->isSubmitted() && $formedit->isValid()) {
-            $usuarioedit = $formedit->getData();
+            $usuarioedi = $formedit->getData();
+            $id = $usuario->getId();
 
             $em = $this->getDoctrine()->getManager();
-//            $em->persist($usuarioedit);
+            $usuariol = $em->getRepository(Usuario::class)->find($id);
+            $usuariol->setNombre($usuarioedi->getNombre());
+            $usuariol->setUsername($usuarioedi->getUsername());
+            $usuariol->setEmail($usuarioedi->getEmail());
+            $usuariol->setTipoUsuario($usuarioedi->gettipoUsuario());
+            //
+            $plainPassword = $usuarioedi->getContrasena();
+            $encoded = $encoder->encodePassword($usuariol, $plainPassword);
+            $usuariol->setContrasena($encoded);
+//            $usuariol->setContrasena($usuarioedi->getContrasena());
+
             $em->flush();
 
             return $this->redirectToRoute('lista_usuarios');
@@ -129,7 +141,7 @@ class UsuarioController extends Controller {
     /**
      * @Route("/crear/usuario", name="crear_usuario")
      */
-    public function indexNuevoUsuario (Request $request) {
+    public function indexNuevoUsuario (Request $request, UserPasswordEncoderInterface $encoder) {
 
         // creates a task and gives it some dummy data for this example
         $usuario = new Usuario();
@@ -165,7 +177,11 @@ class UsuarioController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             $usuario = $form->getData();
 
+
             $em = $this->getDoctrine()->getManager();
+            $plainPassword = $usuario->getContrasena();
+            $encoded = $encoder->encodePassword($usuario, $plainPassword);
+            $usuario->setContrasena($encoded);
             $em->persist($usuario);
             $em->flush();
 

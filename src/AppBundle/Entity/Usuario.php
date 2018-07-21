@@ -60,6 +60,33 @@ class Usuario implements UserInterface
      */
     private $tipoUsuario;
 
+    /**
+     * @var $tickets
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="usuario")
+     */
+    private $tickets;
+
+    public function __construct()
+    {
+        $this->tickets = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTickets()
+    {
+        return $this->tickets;
+    }
+
+    /**
+     * @param mixed $tickets
+     */
+    public function setTickets($tickets)
+    {
+        $this->tickets = $tickets;
+    }
+
 
 
 
@@ -214,7 +241,8 @@ class Usuario implements UserInterface
      */
     public function getSalt()
     {
-        return null;
+//        return $this->salt;
+//        return null;
         // TODO: Implement getSalt() method.
     }
 
@@ -227,6 +255,31 @@ class Usuario implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+
+    /**
+     * Add ticket
+     *
+     * @param \AppBundle\Entity\Ticket $ticket
+     *
+     * @return Usuario
+     */
+    public function addTicket(\AppBundle\Entity\Ticket $ticket)
+    {
+        $this->tickets[] = $ticket;
+
+        return $this;
+    }
+
+    /**
+     * Remove ticket
+     *
+     * @param \AppBundle\Entity\Ticket $ticket
+     */
+    public function removeTicket(\AppBundle\Entity\Ticket $ticket)
+    {
+        $this->tickets->removeElement($ticket);
     }
 }
 

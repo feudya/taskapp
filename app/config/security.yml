@@ -19,18 +19,24 @@ security:
             security: false
 
 
-        main:
-            anonymous: ~
-            provider: our_db_provider
-            form_login:
-                login_path: login
-                check_path: login
-                default_target_path: lista_tickets
-                always_use_default_target_path: true
-            logout:
-                path: logout
-                target: /
+#        main:
+#            anonymous: ~
+#            provider: our_db_provider
+#            form_login:
+#                login_path: /login
+#                check_path: /login_check
+##                default_target_path: /login
+##                always_use_default_target_path: true
+#            logout:
+#                path: logout
+#                target: /login
+##                invalidate_session: true
+##                default_target_path: /login
             # activate different ways to authenticate
+    access_control:
+        - { path: ^/login,  roles:  IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuario,  roles:  IS_AUTHENTICATED_FULLY }
+        - { path: ^/ticket,  roles:  IS_AUTHENTICATED_FULLY }
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 #            http_basic: ~

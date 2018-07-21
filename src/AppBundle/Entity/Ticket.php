@@ -24,7 +24,7 @@ class Ticket
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_completado", type="datetime")
+     * @ORM\Column(name="fecha_completado", type="datetime",nullable=true)
      */
     private $fechaCompletado;
 
@@ -38,7 +38,7 @@ class Ticket
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_creado", type="datetime")
+     * @ORM\Column(name="fecha_creado", type="datetime",options={"default"="CURRENT_TIMESTAMP"},nullable=true)
      */
     private $fechaCreado;
 
@@ -52,19 +52,43 @@ class Ticket
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="tickets")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(name="usuario_asignado_id", type="integer")
      */
-    private $usuarioAsignado;
+    private $usuarioAsignadoId;
 
     /**
-     * @var int
-     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="tickets")
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(name="usuario", type="integer")
+     */
+    private $usuario;
+
+
+    /**
+     * @param \AppBundle\Entity\Usuario $usuario
+     *
+     * @return Usuario
      */
 
-    private $usuario;
+    public function addUsuarioCrea(\AppBundle\Entity\Usuario $usuario)
+    {
+        $this->usuario[] = $usuario;
+
+        return $this;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * @return int
@@ -147,19 +171,27 @@ class Ticket
     }
 
     /**
-     * @return int
+     * Set usuarioAsignadoId
+     *
+     * @param integer $usuarioAsignadoId
+     *
+     * @return Ticket
      */
-    public function getUsuarioAsignado()
+    public function setUsuarioAsignadoId($usuarioAsignadoId)
     {
-        return $this->usuarioAsignado;
+        $this->usuarioAsignadoId = $usuarioAsignadoId;
+
+        return $this;
     }
 
     /**
-     * @param int $usuarioAsignado
+     * Get usuarioAsignadoId
+     *
+     * @return int
      */
-    public function setUsuarioAsignado($usuarioAsignado)
+    public function getUsuarioAsignadoId()
     {
-        $this->usuarioAsignado = $usuarioAsignado;
+        return $this->usuarioAsignadoId;
     }
 
     /**
