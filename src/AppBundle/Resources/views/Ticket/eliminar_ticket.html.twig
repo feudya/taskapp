@@ -1,0 +1,62 @@
+{% extends 'base_ticket.html.twig' %}
+
+{% block titulo %}Eliminar Ticket{% endblock %}
+{% block menu_ticket %}class="active"{% endblock %}
+
+{% block body %}
+    <h1>Eliminar Ticket</h1>
+    <div class="subheader">
+        <span class="alert-danger">Seguro de eliminar este ticket?  </span>
+        <a type="button" class="btn btn-danger" onclick="eliminar()">Eliminar</a>
+        <a type="button" class="btn btn-primary" href="{{ path('lista_tickets') }}">Volver</a>
+    </div>
+    <br />
+    <div class="panel-heading full-width left">
+        <div class="panel-body left">
+            <h5>Asignación: #{{ ticket.id }}</h5>
+        </div>
+        <div class="panel-body left">
+            <h5>Fecha Creado: {{ ticket.fechaCreado|date("m/d/Y") }}</h5>
+        </div>
+        <div class="panel-body left">
+            <h5>Fecha Cerrado: {{ ticket.fechaCompletado|date("m/d/Y") }}</h5>
+        </div>
+        <div class="panel-body left">
+            <h5>Estado: {{ ticket.estado }}</h5>
+        </div>
+        <br />
+        <div style="clear: both;"></div>
+        <div class="center">
+            <h4>Asignado A: {{ usuarioasigna }}</h4>
+        </div>
+    </div>
+    <br />
+    <div class="panel-primary">
+        <div class="left">
+            <h4>Solicitado Por: {{ usuariocrea }}</h4>
+        </div>
+        <br />
+        <div class="left">
+            <h4>Descripcion:</h4> <p>{{ ticket.descripcion }}</p>
+        </div>
+
+    </div>
+    <input type="hidden" value="{{ ticket.id }}" id="id">
+    <script>
+        function eliminar() {
+            var id = $('#id').val();
+            $.ajax({
+                url: '/app_dev.php/rest/ticket/' + id,
+                type: 'DELETE',
+                success: function (response) {
+//                    console.log(response);
+                    window.location='/app_dev.php/tickets';
+                }                ,
+                error: function (err) {
+                    console.log(err);
+//                    alert("que te creias papá")
+                }
+            });
+        }
+    </script>
+{% endblock %}

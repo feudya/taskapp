@@ -160,9 +160,19 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                     return array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::indexTicket',  '_route' => 'lista_tickets',);
                 }
 
+                // eliminar_ticket
+                if (preg_match('#^/tickets/(?P<id>[^/]++)/eliminar$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'eliminar_ticket')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::deleteTicket',));
+                }
+
                 // ticket_info
                 if (preg_match('#^/tickets/(?P<id>[^/]++)/ver$#sD', $pathinfo, $matches)) {
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'ticket_info')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::indexTicketInfo',));
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'ticket_info')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::verTicket',));
+                }
+
+                // iniciar_ticket
+                if (preg_match('#^/tickets/(?P<id>[^/]++)/iniciar$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'iniciar_ticket')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::iniciarTicket',));
                 }
 
             }
@@ -174,35 +184,34 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
-        elseif (0 === strpos($pathinfo, '/usuario')) {
-            // lista_usuarios
-            if ('/usuario' === $pathinfo) {
-                return array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexUsuario',  '_route' => 'lista_usuarios',);
-            }
+        elseif (0 === strpos($pathinfo, '/rest/ticket')) {
+            // elimina_ticket
+            if (preg_match('#^/rest/ticket/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'elimina_ticket')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::restDeleteTicket',));
+                if (!in_array($requestMethod, array('DELETE'))) {
+                    $allow = array_merge($allow, array('DELETE'));
+                    goto not_elimina_ticket;
+                }
 
-            // editar_usuario
-            if (preg_match('#^/usuario/(?P<id>[^/]++)/edit$#sD', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'editar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexEditUsuario',));
+                return $ret;
             }
+            not_elimina_ticket:
 
-            // valida_eliminar_usuario
-            if (preg_match('#^/usuario/(?P<id>[^/]++)/remove$#sD', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'valida_eliminar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::validDeleteUsuario',));
-            }
+            // inicia_ticket
+            if (preg_match('#^/rest/ticket/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'inicia_ticket')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::restIniciaTicket',));
+                if (!in_array($requestMethod, array('PUT'))) {
+                    $allow = array_merge($allow, array('PUT'));
+                    goto not_inicia_ticket;
+                }
 
-            // userinfo
-            if (preg_match('#^/usuario/(?P<idUsuario>[^/]++)$#sD', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'userinfo')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexUsuarioInfo',));
+                return $ret;
             }
+            not_inicia_ticket:
 
         }
 
-        // crear_usuario
-        if ('/crear/usuario' === $pathinfo) {
-            return array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexNuevoUsuario',  '_route' => 'crear_usuario',);
-        }
-
-        if (0 === strpos($pathinfo, '/rest/usuario')) {
+        elseif (0 === strpos($pathinfo, '/rest/usuario')) {
             if (0 === strpos($pathinfo, '/rest/usuariog')) {
                 // buscar_usuarios
                 if ('/rest/usuariog' === $pathinfo) {
@@ -266,6 +275,34 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
             not_eliminar_usuario:
 
+        }
+
+        elseif (0 === strpos($pathinfo, '/usuario')) {
+            // lista_usuarios
+            if ('/usuario' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexUsuario',  '_route' => 'lista_usuarios',);
+            }
+
+            // editar_usuario
+            if (preg_match('#^/usuario/(?P<id>[^/]++)/edit$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'editar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexEditUsuario',));
+            }
+
+            // valida_eliminar_usuario
+            if (preg_match('#^/usuario/(?P<id>[^/]++)/remove$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'valida_eliminar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::validDeleteUsuario',));
+            }
+
+            // userinfo
+            if (preg_match('#^/usuario/(?P<idUsuario>[^/]++)$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'userinfo')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexUsuarioInfo',));
+            }
+
+        }
+
+        // crear_usuario
+        if ('/crear/usuario' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexNuevoUsuario',  '_route' => 'crear_usuario',);
         }
 
         if ('/' === $pathinfo && !$allow) {

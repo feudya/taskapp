@@ -26,8 +26,8 @@
 			<td class="estado">{{ticket.estado}}</td>
 			<td class="acciones">
 				<a type="button" class="btn btn-primary" href="{{ path('ticket_info', { 'id' : ticket.id }) }}">Ver</a>
-				<a type="button" class="btn btn-danger" href="{{ path('ticket_info', { 'id' : ticket.id, 1 }) }}">Eliminar</a>
-				<a type="button" class="btn btn-warning" href="{{ path('ticket_info', { 'id' : ticket.id, 'accion': 'iniciar' }) }}">Iniciar</a>
+				<a type="button" class="btn btn-danger" href="{{ path('eliminar_ticket', { 'id' : ticket.id }) }}">Eliminar</a>
+				<a type="button" class="btn btn-warning" href="{{ path('iniciar_ticket', { 'id' : ticket.id }) }}">Iniciar</a>
 			</td>
 		</tr>
 	{% endfor %}

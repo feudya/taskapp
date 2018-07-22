@@ -140,11 +140,11 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
             echo "\">Ver</a>
 \t\t\t\t<a type=\"button\" class=\"btn btn-danger\" href=\"";
             // line 29
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("ticket_info", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()), "accion" => "eliminar")), "html", null, true);
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("eliminar_ticket", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()))), "html", null, true);
             echo "\">Eliminar</a>
 \t\t\t\t<a type=\"button\" class=\"btn btn-warning\" href=\"";
             // line 30
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("ticket_info", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()), "accion" => "iniciar")), "html", null, true);
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("iniciar_ticket", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()))), "html", null, true);
             echo "\">Iniciar</a>
 \t\t\t</td>
 \t\t</tr>
@@ -209,8 +209,8 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
 \t\t\t<td class=\"estado\">{{ticket.estado}}</td>
 \t\t\t<td class=\"acciones\">
 \t\t\t\t<a type=\"button\" class=\"btn btn-primary\" href=\"{{ path('ticket_info', { 'id' : ticket.id }) }}\">Ver</a>
-\t\t\t\t<a type=\"button\" class=\"btn btn-danger\" href=\"{{ path('ticket_info', { 'id' : ticket.id, 'accion': 'eliminar' }) }}\">Eliminar</a>
-\t\t\t\t<a type=\"button\" class=\"btn btn-warning\" href=\"{{ path('ticket_info', { 'id' : ticket.id, 'accion': 'iniciar' }) }}\">Iniciar</a>
+\t\t\t\t<a type=\"button\" class=\"btn btn-danger\" href=\"{{ path('eliminar_ticket', { 'id' : ticket.id }) }}\">Eliminar</a>
+\t\t\t\t<a type=\"button\" class=\"btn btn-warning\" href=\"{{ path('iniciar_ticket', { 'id' : ticket.id }) }}\">Iniciar</a>
 \t\t\t</td>
 \t\t</tr>
 \t{% endfor %}

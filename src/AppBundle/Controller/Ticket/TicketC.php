@@ -10,6 +10,7 @@ namespace AppBundle\Controller\Ticket;
 
 use AppBundle\Entity\Ticket;
 use AppBundle\Entity\Usuario;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,59 +35,6 @@ class TicketC extends Controller {
 	}
 
     /**
-     * @Route("/tickets/{id}/ver", name="ticket_info")
-     * Method("GET")
-     * @param Ticket $ticket
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function indexTicketInfo(Ticket $ticket, Request $request)
-    {
-//var_dump($request);
-//        var_dump($ticket);
-//        var_dump($ticket->getUsuarioAsignadoId());
-
-        $em = $this->getDoctrine()->getManager();
-        $usuarioid = $ticket->getUsuario();
-        $usuarioasignaid = $ticket->getUsuarioAsignadoId();
-        $usuario = $em->getRepository(Usuario::class)->find($usuarioid);
-        $usuariocrea = $usuario->getNombre();
-        $usuario = $em->getRepository(Usuario::class)->find($usuarioasignaid);
-        $usuarioasignado = $usuario->getNombre();
-
-//        $ticket->add('usuariocrea', TextType::class);
-//        $ticket->setUsuariocrea($usuariocrea);
-
-//        var_dump($ticket);
-        //        $conn = $em->getConnection();
-
-//        $stmt = $conn->prepare($sql);
-//        $stmt->execute();
-//        $ticket = $stmt->fetchAll();
-//        $ticket = $em->getRepository(Ticket::class)->find($id);
-//        $ticket = $ticket[0];
-//        var_dump($ticket);die;
-//        $ticketinfo = array(
-//            'id'=> $ticket['id'],
-//            'usuario'=> $ticket['creado'],
-//            'asignado'=> $ticket['asignado'],
-//            'descripcion'=> $ticket['descripcion'],
-//            'creado'=> $ticket['fecha_creado'],
-//            'cerrado'=> $ticket['fecha_completado'],
-//            'estado'=> $ticket['estado']
-//        );
-//var_dump($ticket);
-        return $this->render('@App/Ticket/index.html.twig', array(
-                "ticket" => $ticket,
-                "usuariocrea" => $usuariocrea,
-                "usuarioasigna" => $usuarioasignado
-        ));
-//        return $this->render('@App/Ticket/index.html.twig', array(
-//            'form' => $form->createView(),
-//        ));
-    }
-
-
-    /**
      * @Route("/ticket/nuevo", name="crear_ticket")
      */
     public function nuevoTicket(Request $request)
@@ -100,14 +48,6 @@ class TicketC extends Controller {
         $usuarioc = $entityManager->findBy(
             ['tipoUsuario' => 'normal']
         );
-//                $query = $entityManager->createQuery(
-//            'SELECT uc.nombre, uc.id
-//              FROM AppBundle:Usuario uc
-//              WHERE uc.tipoUsuario = :tipo
-//              ORDER BY uc.nombre ASC'
-//        )->setParameter('tipo', 'tecnico')
-//        ;
-//        $usuarioc = $query->getResult();
 
         $tecnico = array();
         foreach ($usuariot as $usuariot) {
@@ -154,5 +94,113 @@ class TicketC extends Controller {
         return $this->render('@App/Ticket/nuevo_ticket.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+
+    /**
+     * @Route("/tickets/{id}/eliminar", name="eliminar_ticket")
+     */
+    public function deleteTicket(Ticket $ticket, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuarioid = $ticket->getUsuario();
+        $usuarioasignaid = $ticket->getUsuarioAsignadoId();
+        $usuario = $em->getRepository(Usuario::class)->find($usuarioid);
+        $usuariocrea = $usuario->getNombre();
+        $usuario = $em->getRepository(Usuario::class)->find($usuarioasignaid);
+        $usuarioasignado = $usuario->getNombre();
+
+        return $this->render('@App/Ticket/eliminar_ticket.html.twig', array(
+            "ticket" => $ticket,
+            "usuariocrea" => $usuariocrea,
+            "usuarioasigna" => $usuarioasignado
+        ));
+    }
+
+
+    /**
+     * @Route("/tickets/{id}/ver", name="ticket_info")
+     * Method("GET")
+     * @param Ticket $ticket
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function verTicket(Ticket $ticket, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuarioid = $ticket->getUsuario();
+        $usuarioasignaid = $ticket->getUsuarioAsignadoId();
+        $usuario = $em->getRepository(Usuario::class)->find($usuarioid);
+        $usuariocrea = $usuario->getNombre();
+        $usuario = $em->getRepository(Usuario::class)->find($usuarioasignaid);
+        $usuarioasignado = $usuario->getNombre();
+
+        return $this->render('@App/Ticket/ver_ticket.html.twig', array(
+            "ticket" => $ticket,
+            "usuariocrea" => $usuariocrea,
+            "usuarioasigna" => $usuarioasignado
+        ));
+    }
+
+
+    /**
+     * @Route("/tickets/{id}/iniciar", name="iniciar_ticket")
+     * Method("GET")
+     * @param Ticket $ticket
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function iniciarTicket(Ticket $ticket, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usuarioid = $ticket->getUsuario();
+        $usuarioasignaid = $ticket->getUsuarioAsignadoId();
+        $usuario = $em->getRepository(Usuario::class)->find($usuarioid);
+        $usuariocrea = $usuario->getNombre();
+        $usuario = $em->getRepository(Usuario::class)->find($usuarioasignaid);
+        $usuarioasignado = $usuario->getNombre();
+
+        return $this->render('@App/Ticket/modificar_ticket.html.twig', array(
+            "ticket" => $ticket,
+            "usuariocrea" => $usuariocrea,
+            "usuarioasigna" => $usuarioasignado
+        ));
+    }
+
+
+
+
+
+
+
+
+
+    /**
+     * @Route("/rest/ticket/{id}", name="elimina_ticket")
+     * @Method("DELETE")
+     * @param Ticket $ticket
+     */
+    public function restDeleteTicket(Ticket $ticket) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($ticket);
+        $em->flush();
+
+        return $this->redirectToRoute('lista_tickets');
+    }
+
+    /**
+     * @Route("/rest/ticket/{id}", name="inicia_ticket")
+     * @Method("PUT")
+     * @param Request $request
+     * @param Ticket $ticket
+     */
+    public function restIniciaTicket(Ticket $ticket) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($ticket);
+        $em->flush();
+
+        return $this->redirectToRoute('lista_tickets');
     }
 }

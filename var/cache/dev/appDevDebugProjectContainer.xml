@@ -540,7 +540,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.w8kx.dr"/>
+      <argument type="service" id="service_locator.v9ooz6s"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -3725,7 +3725,7 @@
         <argument key="encoder" type="service" id="security.user_password_encoder.generic" on-invalid="ignore"/>
       </argument>
     </service>
-    <service id="service_locator.w8kx.dr" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.v9ooz6s" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="AppBundle\Controller\DefaultController:loginAction" type="service" id="service_locator.iud7pdy"/>
