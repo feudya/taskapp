@@ -6,7 +6,14 @@
 {% block body %}
     <h1>Informacion de Ticket</h1>
     <div class="subheader">
-        <a type="button" class="btn btn-danger" href="{{ path('lista_tickets') }}">Volver</a>
+        {% if ticket.estado == 'EN PROCESO' %}
+            <a type="button" class="btn btn-success" onclick="cambiarEstado('COMPLETADO')">Ticket Completado</a>
+        {% elseif ticket.estado == 'COMPLETADO' %}
+            <span class="alert-success">Ticket Completado!</span>
+        {% else %}
+            <a type="button" class="btn btn-success" onclick="cambiarEstado('EN PROCESO')">Iniciar Ticket</a>
+        {% endif %}
+        <a type="button" class="btn btn-primary" href="{{ path('lista_tickets') }}">Volver</a>
     </div>
     <br />
     <div class="panel-heading full-width left">
@@ -39,5 +46,26 @@
         </div>
 
     </div>
+    <input type="hidden" value="{{ ticket.id }}" id="id">
+    <script>
+        function cambiarEstado(nuevoEstado) {
 
+            var id = $('#id').val();
+//            var data = nuevoEstado;
+//            console.log(data);
+            $.ajax({
+                url: '/app_dev.php/rest/ticket/' + id+'/cambia',
+                type: 'PUT',
+                data : nuevoEstado,
+                success: function (response) {
+//                    console.log(response);
+                    window.location = '/app_dev.php/tickets';
+                }                ,
+                error: function (err) {
+                    console.log(err);
+//                    alert("que te creias papá")
+                }
+            });
+        }
+    </script>
 {% endblock %}

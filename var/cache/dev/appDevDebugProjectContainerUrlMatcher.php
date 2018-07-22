@@ -197,17 +197,17 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
             not_elimina_ticket:
 
-            // inicia_ticket
-            if (preg_match('#^/rest/ticket/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
-                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'inicia_ticket')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::restIniciaTicket',));
+            // cambia_estado_ticket
+            if (preg_match('#^/rest/ticket/(?P<id>[^/]++)/cambia$#sD', $pathinfo, $matches)) {
+                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'cambia_estado_ticket')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::restIniciaTicket',));
                 if (!in_array($requestMethod, array('PUT'))) {
                     $allow = array_merge($allow, array('PUT'));
-                    goto not_inicia_ticket;
+                    goto not_cambia_estado_ticket;
                 }
 
                 return $ret;
             }
-            not_inicia_ticket:
+            not_cambia_estado_ticket:
 
         }
 

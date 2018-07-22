@@ -189,16 +189,18 @@ class TicketC extends Controller {
     }
 
     /**
-     * @Route("/rest/ticket/{id}", name="inicia_ticket")
+     * @Route("/rest/ticket/{id}/cambia", name="cambia_estado_ticket")
      * @Method("PUT")
      * @param Request $request
      * @param Ticket $ticket
      */
-    public function restIniciaTicket(Ticket $ticket) {
+    public function restIniciaTicket(Ticket $ticket, Request $request) {
+
+        $data = $request->getContent();
+
+        $ticket->setEstado($data);
 
         $em = $this->getDoctrine()->getManager();
-
-        $em->remove($ticket);
         $em->flush();
 
         return $this->redirectToRoute('lista_tickets');
