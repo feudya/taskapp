@@ -102,7 +102,7 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
 \t\t<td class=\"ticket head\">Ticket</td>
 \t\t<td class=\"descripcion head\">Descripcion</td>
 \t\t<td class=\"creado head\">Creado</td>
-\t\t<td class=\"asignado head\">Asignado</td>
+\t\t<td class=\"asignado head\">Completado</td>
 \t\t<td class=\"estado head\">Estado</td>
 \t\t<td class=\"acciones head\">Acciones</td>
 \t</tr>
@@ -123,11 +123,11 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
             echo "</td>
 \t\t\t<td class=\"creado\">";
             // line 24
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["ticket"], "creado", array()), "html", null, true);
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["ticket"], "fechaCreado", array()), "m/d/Y"), "html", null, true);
             echo "</td>
 \t\t\t<td class=\"asignado\">";
             // line 25
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["ticket"], "asignado", array()), "html", null, true);
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["ticket"], "fechaCompletado", array()), "m/d/Y"), "html", null, true);
             echo "</td>
 \t\t\t<td class=\"estado\">";
             // line 26
@@ -138,6 +138,14 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
             // line 28
             echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("ticket_info", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()))), "html", null, true);
             echo "\">Ver</a>
+\t\t\t\t<a type=\"button\" class=\"btn btn-danger\" href=\"";
+            // line 29
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("ticket_info", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()), "accion" => "eliminar")), "html", null, true);
+            echo "\">Eliminar</a>
+\t\t\t\t<a type=\"button\" class=\"btn btn-warning\" href=\"";
+            // line 30
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("ticket_info", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()), "accion" => "iniciar")), "html", null, true);
+            echo "\">Iniciar</a>
 \t\t\t</td>
 \t\t</tr>
 \t";
@@ -145,7 +153,7 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['ticket'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 32
+        // line 34
         echo "\t</table>
 ";
         
@@ -168,7 +176,7 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
 
     public function getDebugInfo()
     {
-        return array (  149 => 32,  139 => 28,  134 => 26,  130 => 25,  126 => 24,  122 => 23,  118 => 22,  115 => 21,  111 => 20,  95 => 7,  91 => 5,  82 => 4,  64 => 3,  46 => 2,  15 => 1,);
+        return array (  157 => 34,  147 => 30,  143 => 29,  139 => 28,  134 => 26,  130 => 25,  126 => 24,  122 => 23,  118 => 22,  115 => 21,  111 => 20,  95 => 7,  91 => 5,  82 => 4,  64 => 3,  46 => 2,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -188,7 +196,7 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
 \t\t<td class=\"ticket head\">Ticket</td>
 \t\t<td class=\"descripcion head\">Descripcion</td>
 \t\t<td class=\"creado head\">Creado</td>
-\t\t<td class=\"asignado head\">Asignado</td>
+\t\t<td class=\"asignado head\">Completado</td>
 \t\t<td class=\"estado head\">Estado</td>
 \t\t<td class=\"acciones head\">Acciones</td>
 \t</tr>
@@ -196,11 +204,13 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
 \t\t<tr>
 \t\t\t<td class=\"ticket\">{{ticket.id}}</td>
 \t\t\t<td class=\"descripcion\">{{ticket.descripcion}}</td>
-\t\t\t<td class=\"creado\">{{ticket.creado}}</td>
-\t\t\t<td class=\"asignado\">{{ticket.asignado}}</td>
+\t\t\t<td class=\"creado\">{{ ticket.fechaCreado|date(\"m/d/Y\") }}</td>
+\t\t\t<td class=\"asignado\">{{ ticket.fechaCompletado|date(\"m/d/Y\") }}</td>
 \t\t\t<td class=\"estado\">{{ticket.estado}}</td>
 \t\t\t<td class=\"acciones\">
 \t\t\t\t<a type=\"button\" class=\"btn btn-primary\" href=\"{{ path('ticket_info', { 'id' : ticket.id }) }}\">Ver</a>
+\t\t\t\t<a type=\"button\" class=\"btn btn-danger\" href=\"{{ path('ticket_info', { 'id' : ticket.id, 'accion': 'eliminar' }) }}\">Eliminar</a>
+\t\t\t\t<a type=\"button\" class=\"btn btn-warning\" href=\"{{ path('ticket_info', { 'id' : ticket.id, 'accion': 'iniciar' }) }}\">Iniciar</a>
 \t\t\t</td>
 \t\t</tr>
 \t{% endfor %}

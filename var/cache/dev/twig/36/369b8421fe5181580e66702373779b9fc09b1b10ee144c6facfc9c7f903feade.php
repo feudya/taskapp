@@ -100,32 +100,42 @@ class __TwigTemplate_ca4bd71be215f2fcb40fe6d687113d86154e3df425d84d07cdf681a2571
         <tr>
             <th>Nombre</th>
             <th>Username</th>
+            <th>Email</th>
+            <th>Tipo</th>
             <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
         ";
-        // line 19
+        // line 21
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["usuarios"]) || array_key_exists("usuarios", $context) ? $context["usuarios"] : (function () { throw new Twig_Error_Runtime('Variable "usuarios" does not exist.', 19, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["usuarios"]) || array_key_exists("usuarios", $context) ? $context["usuarios"] : (function () { throw new Twig_Error_Runtime('Variable "usuarios" does not exist.', 21, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["usuario"]) {
-            // line 20
+            // line 22
             echo "            <tr>
                 <td>";
-            // line 21
+            // line 23
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["usuario"], "nombre", array()), "html", null, true);
             echo "</td>
                 <td>";
-            // line 22
+            // line 24
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["usuario"], "username", array()), "html", null, true);
+            echo "</td>
+                <td>";
+            // line 25
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["usuario"], "email", array()), "html", null, true);
+            echo "</td>
+                <td>";
+            // line 26
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["usuario"], "tipoUsuario", array()), "html", null, true);
             echo "</td>
                 <td>
                     <a type=\"button\" class=\"btn btn-primary\" href=\"";
-            // line 24
+            // line 28
             echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("editar_usuario", array("id" => twig_get_attribute($this->env, $this->source, $context["usuario"], "id", array()))), "html", null, true);
             echo "\">Editar</a>
                     <a type=\"button\" class=\"btn btn-danger\" href=\"";
-            // line 25
+            // line 29
             echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("valida_eliminar_usuario", array("id" => twig_get_attribute($this->env, $this->source, $context["usuario"], "id", array()))), "html", null, true);
             echo "\">Eliminar</a>
                 </td>
@@ -135,7 +145,7 @@ class __TwigTemplate_ca4bd71be215f2fcb40fe6d687113d86154e3df425d84d07cdf681a2571
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['usuario'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 29
+        // line 33
         echo "
         </tbody>
     </table>
@@ -161,7 +171,7 @@ class __TwigTemplate_ca4bd71be215f2fcb40fe6d687113d86154e3df425d84d07cdf681a2571
 
     public function getDebugInfo()
     {
-        return array (  139 => 29,  129 => 25,  125 => 24,  120 => 22,  116 => 21,  113 => 20,  109 => 19,  95 => 8,  91 => 6,  82 => 5,  64 => 4,  46 => 3,  15 => 1,);
+        return array (  149 => 33,  139 => 29,  135 => 28,  130 => 26,  126 => 25,  122 => 24,  118 => 23,  115 => 22,  111 => 21,  95 => 8,  91 => 6,  82 => 5,  64 => 4,  46 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -180,6 +190,8 @@ class __TwigTemplate_ca4bd71be215f2fcb40fe6d687113d86154e3df425d84d07cdf681a2571
         <tr>
             <th>Nombre</th>
             <th>Username</th>
+            <th>Email</th>
+            <th>Tipo</th>
             <th>Acciones</th>
         </tr>
         </thead>
@@ -188,6 +200,8 @@ class __TwigTemplate_ca4bd71be215f2fcb40fe6d687113d86154e3df425d84d07cdf681a2571
             <tr>
                 <td>{{ usuario.nombre }}</td>
                 <td>{{ usuario.username }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>{{ usuario.tipoUsuario }}</td>
                 <td>
                     <a type=\"button\" class=\"btn btn-primary\" href=\"{{ path('editar_usuario', { 'id' : usuario.id }) }}\">Editar</a>
                     <a type=\"button\" class=\"btn btn-danger\" href=\"{{ path('valida_eliminar_usuario', { 'id' : usuario.id }) }}\">Eliminar</a>

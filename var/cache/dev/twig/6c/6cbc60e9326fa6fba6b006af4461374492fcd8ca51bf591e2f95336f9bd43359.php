@@ -97,7 +97,18 @@ class __TwigTemplate_148428f734ecbf755b3c8f1d9f426d3be880ab903280596765f260f6378
 </div>
 <br />
     <div class=\"panel-heading full-width left\">
-
+        ";
+        // line 13
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 13, $this->source); })()), 'form_start');
+        echo "
+        ";
+        // line 14
+        echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 14, $this->source); })()), 'widget');
+        echo "
+        ";
+        // line 15
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new Twig_Error_Runtime('Variable "form" does not exist.', 15, $this->source); })()), 'form_end');
+        echo "
 
     </div>
 
@@ -122,7 +133,7 @@ class __TwigTemplate_148428f734ecbf755b3c8f1d9f426d3be880ab903280596765f260f6378
 
     public function getDebugInfo()
     {
-        return array (  95 => 9,  91 => 7,  82 => 6,  64 => 4,  46 => 3,  15 => 1,);
+        return array (  110 => 15,  106 => 14,  102 => 13,  95 => 9,  91 => 7,  82 => 6,  64 => 4,  46 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -139,7 +150,9 @@ class __TwigTemplate_148428f734ecbf755b3c8f1d9f426d3be880ab903280596765f260f6378
 </div>
 <br />
     <div class=\"panel-heading full-width left\">
-
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
 
     </div>
 

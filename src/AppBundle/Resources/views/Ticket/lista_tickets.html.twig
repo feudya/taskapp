@@ -13,7 +13,7 @@
 		<td class="ticket head">Ticket</td>
 		<td class="descripcion head">Descripcion</td>
 		<td class="creado head">Creado</td>
-		<td class="asignado head">Asignado</td>
+		<td class="asignado head">Completado</td>
 		<td class="estado head">Estado</td>
 		<td class="acciones head">Acciones</td>
 	</tr>
@@ -21,11 +21,13 @@
 		<tr>
 			<td class="ticket">{{ticket.id}}</td>
 			<td class="descripcion">{{ticket.descripcion}}</td>
-			<td class="creado">{{ticket.creado}}</td>
-			<td class="asignado">{{ticket.asignado}}</td>
+			<td class="creado">{{ ticket.fechaCreado|date("m/d/Y") }}</td>
+			<td class="asignado">{{ ticket.fechaCompletado|date("m/d/Y") }}</td>
 			<td class="estado">{{ticket.estado}}</td>
 			<td class="acciones">
 				<a type="button" class="btn btn-primary" href="{{ path('ticket_info', { 'id' : ticket.id }) }}">Ver</a>
+				<a type="button" class="btn btn-danger" href="{{ path('ticket_info', { 'id' : ticket.id, 1 }) }}">Eliminar</a>
+				<a type="button" class="btn btn-warning" href="{{ path('ticket_info', { 'id' : ticket.id, 'accion': 'iniciar' }) }}">Iniciar</a>
 			</td>
 		</tr>
 	{% endfor %}
