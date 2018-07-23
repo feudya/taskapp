@@ -8,7 +8,7 @@
 	</div>
 	<div style="clear: both;"></div>
 	<br />
-	<table class="table">
+	<table class="table lista">
 	<tr>
 		<td class="ticket head">Ticket</td>
 		<td class="descripcion head">Descripcion</td>
@@ -16,18 +16,27 @@
 		<td class="asignado head">Completado</td>
 		<td class="estado head">Estado</td>
 		<td class="acciones head">Acciones</td>
+		{#<td class="acciones head"></td>#}
 	</tr>
 	{% for ticket in ticket %}
 		<tr>
 			<td class="ticket">{{ticket.id}}</td>
 			<td class="descripcion">{{ticket.descripcion}}</td>
 			<td class="creado">{{ ticket.fechaCreado|date("m/d/Y") }}</td>
-			<td class="asignado">{{ ticket.fechaCompletado|date("m/d/Y") }}</td>
+			<td class="asignado">
+				{% if ticket.estado != 'LISTO' %}
+
+				{% else %}
+					{{ ticket.fechaCompletado|date("m/d/Y") }}</td>
+				{% endif %}
 			<td class="estado">{{ticket.estado}}</td>
 			<td class="acciones">
 				<a type="button" class="btn btn-primary" href="{{ path('ticket_info', { 'id' : ticket.id }) }}">Ver</a>
 				<a type="button" class="btn btn-danger" href="{{ path('eliminar_ticket', { 'id' : ticket.id }) }}">Eliminar</a>
-				<a type="button" class="btn btn-warning" href="{{ path('iniciar_ticket', { 'id' : ticket.id }) }}">Iniciar</a>
+				{% if ticket.estado != 'LISTO' %}
+					<a type="button" class="btn btn-success" href="{{ path('iniciar_ticket', { 'id' : ticket.id }) }}">Actualizar Ticket</a>
+                {% endif %}
+				{#<a type="button" class="btn btn-warning" href="{{ path('iniciar_ticket', { 'id' : ticket.id }) }}">Iniciar</a>#}
 			</td>
 		</tr>
 	{% endfor %}

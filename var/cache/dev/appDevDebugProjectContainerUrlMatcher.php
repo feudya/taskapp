@@ -140,7 +140,130 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         }
         not_homepage:
 
-        if (0 === strpos($pathinfo, '/t')) {
+        if (0 === strpos($pathinfo, '/rest')) {
+            if (0 === strpos($pathinfo, '/rest/nota')) {
+                // agregar_nota
+                if ('/rest/nota' === $pathinfo) {
+                    $ret = array (  '_controller' => 'AppBundle\\Controller\\Notas\\NotasController::restAgregarNota',  '_route' => 'agregar_nota',);
+                    if (!in_array($requestMethod, array('POST'))) {
+                        $allow = array_merge($allow, array('POST'));
+                        goto not_agregar_nota;
+                    }
+
+                    return $ret;
+                }
+                not_agregar_nota:
+
+                // elimina_nota
+                if (preg_match('#^/rest/nota/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                    $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'elimina_nota')), array (  '_controller' => 'AppBundle\\Controller\\Notas\\NotasController::restDeleteNota',));
+                    if (!in_array($requestMethod, array('DELETE'))) {
+                        $allow = array_merge($allow, array('DELETE'));
+                        goto not_elimina_nota;
+                    }
+
+                    return $ret;
+                }
+                not_elimina_nota:
+
+            }
+
+            elseif (0 === strpos($pathinfo, '/rest/ticket')) {
+                // elimina_ticket
+                if (preg_match('#^/rest/ticket/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                    $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'elimina_ticket')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::restDeleteTicket',));
+                    if (!in_array($requestMethod, array('DELETE'))) {
+                        $allow = array_merge($allow, array('DELETE'));
+                        goto not_elimina_ticket;
+                    }
+
+                    return $ret;
+                }
+                not_elimina_ticket:
+
+                // cambia_estado_ticket
+                if (preg_match('#^/rest/ticket/(?P<id>[^/]++)/cambia$#sD', $pathinfo, $matches)) {
+                    $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'cambia_estado_ticket')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::restIniciaTicket',));
+                    if (!in_array($requestMethod, array('PUT'))) {
+                        $allow = array_merge($allow, array('PUT'));
+                        goto not_cambia_estado_ticket;
+                    }
+
+                    return $ret;
+                }
+                not_cambia_estado_ticket:
+
+            }
+
+            elseif (0 === strpos($pathinfo, '/rest/usuario')) {
+                if (0 === strpos($pathinfo, '/rest/usuariog')) {
+                    // buscar_usuarios
+                    if ('/rest/usuariog' === $pathinfo) {
+                        $ret = array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::buscarUsuarios',  '_route' => 'buscar_usuarios',);
+                        if (!in_array($canonicalMethod, array('GET'))) {
+                            $allow = array_merge($allow, array('GET'));
+                            goto not_buscar_usuarios;
+                        }
+
+                        return $ret;
+                    }
+                    not_buscar_usuarios:
+
+                    // buscar_usuario
+                    if (preg_match('#^/rest/usuariog/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                        $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'buscar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::buscarUsuario',));
+                        if (!in_array($canonicalMethod, array('GET'))) {
+                            $allow = array_merge($allow, array('GET'));
+                            goto not_buscar_usuario;
+                        }
+
+                        return $ret;
+                    }
+                    not_buscar_usuario:
+
+                    // guardar_usuario
+                    if ('/rest/usuariog' === $pathinfo) {
+                        $ret = array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::guardarUsuario',  '_route' => 'guardar_usuario',);
+                        if (!in_array($requestMethod, array('POST'))) {
+                            $allow = array_merge($allow, array('POST'));
+                            goto not_guardar_usuario;
+                        }
+
+                        return $ret;
+                    }
+                    not_guardar_usuario:
+
+                }
+
+                // actualizar_usuario
+                if (preg_match('#^/rest/usuario/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                    $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'actualizar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::actualizarUsuario',));
+                    if (!in_array($requestMethod, array('PUT'))) {
+                        $allow = array_merge($allow, array('PUT'));
+                        goto not_actualizar_usuario;
+                    }
+
+                    return $ret;
+                }
+                not_actualizar_usuario:
+
+                // eliminar_usuario
+                if (preg_match('#^/rest/usuario/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                    $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'eliminar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexDeleteUsuario',));
+                    if (!in_array($requestMethod, array('DELETE'))) {
+                        $allow = array_merge($allow, array('DELETE'));
+                        goto not_eliminar_usuario;
+                    }
+
+                    return $ret;
+                }
+                not_eliminar_usuario:
+
+            }
+
+        }
+
+        elseif (0 === strpos($pathinfo, '/t')) {
             if (0 === strpos($pathinfo, '/tareas')) {
                 // lista_tareas
                 if ('/tareas' === $pathinfo) {
@@ -181,99 +304,6 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             if ('/ticket/nuevo' === $pathinfo) {
                 return array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::nuevoTicket',  '_route' => 'crear_ticket',);
             }
-
-        }
-
-        elseif (0 === strpos($pathinfo, '/rest/ticket')) {
-            // elimina_ticket
-            if (preg_match('#^/rest/ticket/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
-                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'elimina_ticket')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::restDeleteTicket',));
-                if (!in_array($requestMethod, array('DELETE'))) {
-                    $allow = array_merge($allow, array('DELETE'));
-                    goto not_elimina_ticket;
-                }
-
-                return $ret;
-            }
-            not_elimina_ticket:
-
-            // cambia_estado_ticket
-            if (preg_match('#^/rest/ticket/(?P<id>[^/]++)/cambia$#sD', $pathinfo, $matches)) {
-                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'cambia_estado_ticket')), array (  '_controller' => 'AppBundle\\Controller\\Ticket\\TicketC::restIniciaTicket',));
-                if (!in_array($requestMethod, array('PUT'))) {
-                    $allow = array_merge($allow, array('PUT'));
-                    goto not_cambia_estado_ticket;
-                }
-
-                return $ret;
-            }
-            not_cambia_estado_ticket:
-
-        }
-
-        elseif (0 === strpos($pathinfo, '/rest/usuario')) {
-            if (0 === strpos($pathinfo, '/rest/usuariog')) {
-                // buscar_usuarios
-                if ('/rest/usuariog' === $pathinfo) {
-                    $ret = array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::buscarUsuarios',  '_route' => 'buscar_usuarios',);
-                    if (!in_array($canonicalMethod, array('GET'))) {
-                        $allow = array_merge($allow, array('GET'));
-                        goto not_buscar_usuarios;
-                    }
-
-                    return $ret;
-                }
-                not_buscar_usuarios:
-
-                // buscar_usuario
-                if (preg_match('#^/rest/usuariog/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
-                    $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'buscar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::buscarUsuario',));
-                    if (!in_array($canonicalMethod, array('GET'))) {
-                        $allow = array_merge($allow, array('GET'));
-                        goto not_buscar_usuario;
-                    }
-
-                    return $ret;
-                }
-                not_buscar_usuario:
-
-                // guardar_usuario
-                if ('/rest/usuariog' === $pathinfo) {
-                    $ret = array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::guardarUsuario',  '_route' => 'guardar_usuario',);
-                    if (!in_array($requestMethod, array('POST'))) {
-                        $allow = array_merge($allow, array('POST'));
-                        goto not_guardar_usuario;
-                    }
-
-                    return $ret;
-                }
-                not_guardar_usuario:
-
-            }
-
-            // actualizar_usuario
-            if (preg_match('#^/rest/usuario/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
-                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'actualizar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::actualizarUsuario',));
-                if (!in_array($requestMethod, array('PUT'))) {
-                    $allow = array_merge($allow, array('PUT'));
-                    goto not_actualizar_usuario;
-                }
-
-                return $ret;
-            }
-            not_actualizar_usuario:
-
-            // eliminar_usuario
-            if (preg_match('#^/rest/usuario/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
-                $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'eliminar_usuario')), array (  '_controller' => 'AppBundle\\Controller\\Usuario\\UsuarioController::indexDeleteUsuario',));
-                if (!in_array($requestMethod, array('DELETE'))) {
-                    $allow = array_merge($allow, array('DELETE'));
-                    goto not_eliminar_usuario;
-                }
-
-                return $ret;
-            }
-            not_eliminar_usuario:
 
         }
 

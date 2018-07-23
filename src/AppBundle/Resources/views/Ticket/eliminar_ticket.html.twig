@@ -19,7 +19,11 @@
             <h5>Fecha Creado: {{ ticket.fechaCreado|date("m/d/Y") }}</h5>
         </div>
         <div class="panel-body left">
-            <h5>Fecha Cerrado: {{ ticket.fechaCompletado|date("m/d/Y") }}</h5>
+            {% if ticket.estado != 'LISTO' %}
+
+            {% else %}
+                {{ ticket.fechaCompletado|date("m/d/Y") }}</td>
+            {% endif %}
         </div>
         <div class="panel-body left">
             <h5>Estado: {{ ticket.estado }}</h5>
@@ -31,7 +35,7 @@
         </div>
     </div>
     <br />
-    <div class="panel-primary">
+    <div class="panel-primary half information">
         <div class="left">
             <h4>Solicitado Por: {{ usuariocrea }}</h4>
         </div>
@@ -40,6 +44,35 @@
             <h4>Descripcion:</h4> <p>{{ ticket.descripcion }}</p>
         </div>
 
+    </div>
+    <div class="panel-primary half notas">
+        <h3>Notas</h3>
+        <div>
+            {% if notas|length > 0 %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Fecha</td>
+                        <td>Nota</td>
+                        <td>Usuario</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for notas in notas %}
+                    <tr>
+                        <td>{{ notas.id }}</td>
+                        <td>{{ notas.fecha|date("m/d/Y") }}</td>
+                        <td>{{ notas.comentario }}</td>
+                        <td>{{ notas.usuarioid }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {%  else %}
+                <span class="alert-info">No hay notas para mostrar!</span>
+            {% endif %}
+        </div>
     </div>
     <input type="hidden" value="{{ ticket.id }}" id="id">
     <script>

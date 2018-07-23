@@ -74,3 +74,31 @@ form > div {
 .center {
 	text-align: center;
 }
+.acciones {
+	text-align: left;
+	width: 300px;
+}
+.ellipsis{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	/*width: 200px !important;*/
+	max-width: 500px;
+	width: 400px;
+	white-space: nowrap;
+}
+
+.table {
+	width: 100%;
+}
+.lista tr td {
+	max-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.half{
+	width: 50%;
+	max-width: 50%;
+	float: left;
+}

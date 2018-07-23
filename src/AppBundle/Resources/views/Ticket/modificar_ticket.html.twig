@@ -6,12 +6,12 @@
 {% block body %}
     <h1>Informacion de Ticket</h1>
     <div class="subheader">
-        {% if ticket.estado == 'EN PROCESO' %}
-            <a type="button" class="btn btn-success" onclick="cambiarEstado('COMPLETADO')">Ticket Completado</a>
-        {% elseif ticket.estado == 'COMPLETADO' %}
+        {% if ticket.estado == 'EN_PROCESO' %}
+            <a type="button" class="btn btn-success" onclick="cambiarEstado('LISTO')">Completar Ticket</a>
+        {% elseif ticket.estado == 'LISTO' %}
             <span class="alert-success">Ticket Completado!</span>
         {% else %}
-            <a type="button" class="btn btn-success" onclick="cambiarEstado('EN PROCESO')">Iniciar Ticket</a>
+            <a type="button" class="btn btn-success" onclick="cambiarEstado('EN_PROCESO')">Iniciar Ticket</a>
         {% endif %}
         <a type="button" class="btn btn-primary" href="{{ path('lista_tickets') }}">Volver</a>
     </div>
@@ -24,7 +24,11 @@
             <h5>Fecha Creado: {{ ticket.fechaCreado|date("m/d/Y") }}</h5>
         </div>
         <div class="panel-body left">
-            <h5>Fecha Cerrado: {{ ticket.fechaCompletado|date("m/d/Y") }}</h5>
+            {% if ticket.estado != 'LISTO' %}
+
+            {% else %}
+                {{ ticket.fechaCompletado|date("m/d/Y") }}</td>
+            {% endif %}
         </div>
         <div class="panel-body left">
             <h5>Estado: {{ ticket.estado }}</h5>
@@ -36,7 +40,7 @@
         </div>
     </div>
     <br />
-    <div class="panel-primary">
+    <div class="panel-primary half information">
         <div class="left">
             <h4>Solicitado Por: {{ usuariocrea }}</h4>
         </div>
@@ -46,26 +50,82 @@
         </div>
 
     </div>
+    <div class="panel-primary half notas">
+        <h3>Notas</h3>
+        <div>
+            <div>
+                <button class="btn btn-primary" onclick="agregarNota()">Agregar Nota</button>
+                <hr />
+            </div>
+            {% if notas|length > 0 %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        {#<td>#</td>#}
+                        <td>Fecha</td>
+                        <td>Nota</td>
+                        <td>Usuario</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for notas in notas %}
+                    <tr>
+                        {#<td>{{ notas.id }}</td>#}
+                        <td>{{ notas.fecha|date("m/d/Y") }}</td>
+                        <td>{{ notas.comentario }}</td>
+                        <td>{{ notas.usuarioid }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {%  else %}
+                <span class="alert-info">No hay notas para mostrar!</span>
+            {% endif %}
+        </div>
+    </div>
     <input type="hidden" value="{{ ticket.id }}" id="id">
+    <input type="hidden" value="{{ ticket.usuarioAsignadoId }}" id="ua">
     <script>
         function cambiarEstado(nuevoEstado) {
 
             var id = $('#id').val();
-//            var data = nuevoEstado;
-//            console.log(data);
             $.ajax({
                 url: '/app_dev.php/rest/ticket/' + id+'/cambia',
                 type: 'PUT',
                 data : nuevoEstado,
                 success: function (response) {
-//                    console.log(response);
                     window.location = '/app_dev.php/tickets';
                 }                ,
                 error: function (err) {
                     console.log(err);
-//                    alert("que te creias papá")
                 }
             });
+        }
+        function agregarNota() {
+            var nota = prompt("Por favor introduzca la nota");
+            if (nota != null){
+//                var id = $('#id').val();
+
+                data = JSON.stringify({
+                    "ticket": $('#id').val(),
+                    "usuario": $('#ua').val(),
+                    "nota": nota
+                });
+                console.log(data);
+
+                $.ajax({
+                    url: 'app_dev.php/rest/nota',
+                    type: 'POST',
+                    data: data,
+                    success: function (response) {
+                        window.location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+//                        Alert('Se ha producido un error y su nota no ha sido guardada');
+                    }
+                });
+            }
         }
     </script>
 {% endblock %}

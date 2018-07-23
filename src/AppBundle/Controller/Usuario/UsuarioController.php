@@ -83,6 +83,7 @@ class UsuarioController extends Controller {
         if ($formedit->isSubmitted() && $formedit->isValid()) {
             $usuarioedi = $formedit->getData();
             $id = $usuario->getId();
+            $plainPassword = $usuarioedi->getContrasena();
 
             $em = $this->getDoctrine()->getManager();
             $usuariol = $em->getRepository(Usuario::class)->find($id);
@@ -91,7 +92,6 @@ class UsuarioController extends Controller {
             $usuariol->setEmail($usuarioedi->getEmail());
             $usuariol->setTipoUsuario($usuarioedi->gettipoUsuario());
             //
-            $plainPassword = $usuarioedi->getContrasena();
             $encoded = $encoder->encodePassword($usuariol, $plainPassword);
             $usuariol->setContrasena($encoded);
 //            $usuariol->setContrasena($usuarioedi->getContrasena());

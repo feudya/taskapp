@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Ticket
@@ -63,6 +64,33 @@ class Ticket
      */
     private $usuario;
 
+
+    /**
+     * @var $notas
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Notas", mappedBy="ticket")
+     */
+    private $notas;
+
+    public function __construct()
+    {
+        $this->notas = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotas()
+    {
+        return $this->notas;
+    }
+
+    /**
+     * @param mixed notas
+     */
+    public function setNotas($notas)
+    {
+        $this->notas = $notas;
+    }
 
     /**
      * @param \AppBundle\Entity\Usuario $usuario
@@ -210,7 +238,29 @@ class Ticket
         $this->usuario = $usuario;
     }
 
+    /**
+     * Add nota
+     *
+     * @param \AppBundle\Entity\Notas $nota
+     *
+     * @return Ticket
+     */
+    public function addNotas(\AppBundle\Entity\Notas $nota)
+    {
+        $this->notas[] = $nota;
 
+        return $this;
+    }
+
+    /**
+     * Remove nota
+     *
+     * @param \AppBundle\Entity\Notas $nota
+     */
+    public function removeTicket(\AppBundle\Entity\Notas $nota)
+    {
+        $this->notas->removeElement($nota);
+    }
 
 
 

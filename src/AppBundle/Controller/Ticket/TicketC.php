@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller\Ticket;
 
+use AppBundle\Entity\Notas;
 use AppBundle\Entity\Ticket;
 use AppBundle\Entity\Usuario;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -109,11 +110,15 @@ class TicketC extends Controller {
         $usuariocrea = $usuario->getNombre();
         $usuario = $em->getRepository(Usuario::class)->find($usuarioasignaid);
         $usuarioasignado = $usuario->getNombre();
-
+        $entityManager = $this->getDoctrine()->getRepository(Notas::class);
+        $notas = $entityManager->findBy(
+            ['ticketid' => $ticket->getId() ]
+        );
         return $this->render('@App/Ticket/eliminar_ticket.html.twig', array(
             "ticket" => $ticket,
             "usuariocrea" => $usuariocrea,
-            "usuarioasigna" => $usuarioasignado
+            "usuarioasigna" => $usuarioasignado,
+            "notas" => $notas
         ));
     }
 
@@ -134,10 +139,19 @@ class TicketC extends Controller {
         $usuario = $em->getRepository(Usuario::class)->find($usuarioasignaid);
         $usuarioasignado = $usuario->getNombre();
 
+//        var_dump($ticket->getId());die;
+        $entityManager = $this->getDoctrine()->getRepository(Notas::class);
+        $notas = $entityManager->findBy(
+            ['ticketid' => $ticket->getId() ]
+        );
+//        $notas =
+//        var_dump($notas);
+//        var_dump($notas.$usuarioid.nombre);
         return $this->render('@App/Ticket/ver_ticket.html.twig', array(
             "ticket" => $ticket,
             "usuariocrea" => $usuariocrea,
-            "usuarioasigna" => $usuarioasignado
+            "usuarioasigna" => $usuarioasignado,
+            "notas" => $notas
         ));
     }
 
@@ -157,11 +171,15 @@ class TicketC extends Controller {
         $usuariocrea = $usuario->getNombre();
         $usuario = $em->getRepository(Usuario::class)->find($usuarioasignaid);
         $usuarioasignado = $usuario->getNombre();
-
+        $entityManager = $this->getDoctrine()->getRepository(Notas::class);
+        $notas = $entityManager->findBy(
+            ['ticketid' => $ticket->getId() ]
+        );
         return $this->render('@App/Ticket/modificar_ticket.html.twig', array(
             "ticket" => $ticket,
             "usuariocrea" => $usuariocrea,
-            "usuarioasigna" => $usuarioasignado
+            "usuarioasigna" => $usuarioasignado,
+            "notas" => $notas
         ));
     }
 

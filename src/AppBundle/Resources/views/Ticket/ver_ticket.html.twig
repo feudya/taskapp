@@ -29,7 +29,7 @@
         </div>
     </div>
     <br />
-    <div class="panel-primary">
+    <div class="panel-primary half information">
         <div class="left">
             <h4>Solicitado Por: {{ usuariocrea }}</h4>
         </div>
@@ -37,7 +37,35 @@
         <div class="left">
             <h4>Descripcion:</h4> <p>{{ ticket.descripcion }}</p>
         </div>
-
+    </div>
+    <div class="panel-primary half notas">
+        <h3>Notas</h3>
+        <div>
+            {% if notas|length > 0 %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Fecha</td>
+                        <td>Nota</td>
+                        <td>Usuario</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for notas in notas %}
+                    <tr>
+                        <td>{{ notas.id }}</td>
+                        <td>{{ notas.fecha|date("m/d/Y") }}</td>
+                        <td>{{ notas.comentario }}</td>
+                        <td>{{ notas.usuarioid }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {%  else %}
+            <span class="alert-info">No hay notas para mostrar!</span>
+            {% endif %}
+        </div>
     </div>
 
 {% endblock %}
