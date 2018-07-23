@@ -242,7 +242,7 @@ class Usuario implements UserInterface
     public function getSalt()
     {
 //        return $this->salt;
-//        return null;
+        return null;
         // TODO: Implement getSalt() method.
     }
 

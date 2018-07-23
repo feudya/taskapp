@@ -110,10 +110,20 @@ class TicketC extends Controller {
         $usuariocrea = $usuario->getNombre();
         $usuario = $em->getRepository(Usuario::class)->find($usuarioasignaid);
         $usuarioasignado = $usuario->getNombre();
-        $entityManager = $this->getDoctrine()->getRepository(Notas::class);
-        $notas = $entityManager->findBy(
-            ['ticketid' => $ticket->getId() ]
-        );
+//        $entityManager = $this->getDoctrine()->getRepository(Notas::class);
+//        $notas = $entityManager->findBy(
+//            ['ticketid' => $ticket->getId() ]
+//        );
+        $buscaid =$ticket->getId();
+        $sql = '
+		SELECT n.*, u.nombre FROM notas n, usuario u
+        WHERE u.id = n.usuario AND n.ticket = '.$buscaid ;
+        $em = $this->getDoctrine()->getManager();
+        $conn = $em->getConnection();
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $notas = $stmt->fetchAll();
         return $this->render('@App/Ticket/eliminar_ticket.html.twig', array(
             "ticket" => $ticket,
             "usuariocrea" => $usuariocrea,
@@ -140,13 +150,25 @@ class TicketC extends Controller {
         $usuarioasignado = $usuario->getNombre();
 
 //        var_dump($ticket->getId());die;
-        $entityManager = $this->getDoctrine()->getRepository(Notas::class);
-        $notas = $entityManager->findBy(
-            ['ticketid' => $ticket->getId() ]
-        );
+//        $entityManager = $this->getDoctrine()->getRepository(Notas::class);
+//        $notas = $entityManager->findBy(
+//            ['ticketid' => $ticket->getId() ]
+//        );
 //        $notas =
 //        var_dump($notas);
 //        var_dump($notas.$usuarioid.nombre);
+        $buscaid =$ticket->getId();
+        $sql = '
+		SELECT n.*, u.nombre FROM notas n, usuario u
+        WHERE u.id = n.usuario AND n.ticket = '.$buscaid ;
+        $em = $this->getDoctrine()->getManager();
+        $conn = $em->getConnection();
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $notas = $stmt->fetchAll();
+
+//        var_dump($notas);die;
         return $this->render('@App/Ticket/ver_ticket.html.twig', array(
             "ticket" => $ticket,
             "usuariocrea" => $usuariocrea,
@@ -171,10 +193,21 @@ class TicketC extends Controller {
         $usuariocrea = $usuario->getNombre();
         $usuario = $em->getRepository(Usuario::class)->find($usuarioasignaid);
         $usuarioasignado = $usuario->getNombre();
-        $entityManager = $this->getDoctrine()->getRepository(Notas::class);
-        $notas = $entityManager->findBy(
-            ['ticketid' => $ticket->getId() ]
-        );
+//        $entityManager = $this->getDoctrine()->getRepository(Notas::class);
+//        $notas = $entityManager->findBy(
+//            ['ticketid' => $ticket->getId() ]
+//        );
+        $buscaid =$ticket->getId();
+        $sql = '
+		SELECT n.*, u.nombre FROM notas n, usuario u
+        WHERE u.id = n.usuario AND n.ticket = '.$buscaid ;
+        $em = $this->getDoctrine()->getManager();
+        $conn = $em->getConnection();
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $notas = $stmt->fetchAll();
+
         return $this->render('@App/Ticket/modificar_ticket.html.twig', array(
             "ticket" => $ticket,
             "usuariocrea" => $usuariocrea,

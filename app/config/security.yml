@@ -4,7 +4,7 @@ security:
     encoders:
         AppBundle\Entity\Usuario:
             algorithm: bcrypt
-            cost: 4
+#            cost: 4
 #     https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         our_db_provider:
@@ -18,18 +18,19 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-
-#        main:
-#            anonymous: ~
-#            provider: our_db_provider
-#            form_login:
-#                login_path: /login
-#                check_path: /login_check
-##                default_target_path: /login
-##                always_use_default_target_path: true
-#            logout:
-#                path: logout
-#                target: /login
+        main:
+            anonymous: ~
+            pattern: ^/
+#            http_basic: ~
+            provider: our_db_provider
+            form_login:
+                login_path: /login
+                check_path: /login
+#                default_target_path: /
+#                always_use_default_target_path: true
+            logout:
+                path: logout
+                target: /login
 ##                invalidate_session: true
 ##                default_target_path: /login
             # activate different ways to authenticate

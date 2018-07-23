@@ -33,7 +33,6 @@ class Notas
      * @ORM\JoinColumn(nullable=false)
      * @ORM\Column(name="ticket", type="integer")
      */
-//    private $usuario;
     private $ticketid;
 
     /**
