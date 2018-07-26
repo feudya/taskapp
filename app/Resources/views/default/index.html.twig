@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-	<h1>TaskApp</h1>
+	<h1>TaskApp System _Alpha</h1>
+	<hr />
 
-	<h2>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</h2>
-	
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dolor ipsum, maximus a mauris ac, lobortis luctus ante. Maecenas euismod venenatis lorem, nec pharetra nisl tempus at. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce vulputate ultrices dapibus. Phasellus ut vulputate ante. Ut non vulputate erat, sit amet pharetra ipsum. Ut gravida aliquam mi, sed vulputate ante sollicitudin quis. Integer non consectetur mi, nec consequat diam.</p>
-	<p>Cras eleifend commodo tellus eget vehicula. Phasellus eget arcu est. Integer orci augue, lacinia at luctus id, eleifend ut turpis. Maecenas pellentesque neque eget rhoncus ornare. Fusce viverra pulvinar imperdiet. Cras vel quam mattis, pulvinar justo vitae, malesuada est. Suspendisse mattis velit eu sapien tincidunt, sed bibendum turpis commodo. Phasellus est mi, lacinia porta fermentum sed, aliquam a justo. Sed tincidunt quam sit amet ipsum tincidunt dignissim.</p>
-	<p>Etiam eros libero, bibendum eget enim non, elementum vulputate ipsum. Vivamus convallis, ligula in bibendum pellentesque, ligula ante vehicula mauris, condimentum consectetur turpis ligula sed augue. Etiam pellentesque, quam a dignissim cursus, elit mi porta tellus, vel vulputate est tellus id ante. Mauris orci neque, mollis venenatis libero et, feugiat mattis ex. Aenean pulvinar dictum tristique. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque varius sem nec augue viverra, non malesuada leo mattis. Donec in urna nisl. Quisque non odio rhoncus diam rutrum porta a eget risus. Nullam feugiat cursus augue.</p>
+	{% if app.user %}
+		<h3>Bienvenido {{ app.user.nombre }}</h3>
+		<br />
 
-	<h2>Etiam convallis commodo libero, vel rhoncus purus ultricies at</h2>
-	
-	<p>orem ipsum dolor sit amet, consectetur adipiscing elit. Mauris arcu leo, tristique eget suscipit id, ornare non odio. Fusce id suscipit ante. Quisque pretium magna non est facilisis hendrerit. Ut nulla est, ultricies ac metus sit amet, porttitor gravida massa. Suspendisse varius semper faucibus. Integer vehicula est a tempus vulputate. Duis consectetur urna eget lacus mollis, sit amet dictum enim dictum. Nunc luctus ex eu convallis sagittis. Nullam pharetra quam in felis aliquet, nec venenatis dui dapibus. Cras nec quam eget nibh blandit gravida eu sed lectus. Sed suscipit purus quis odio tempor malesuada. Donec malesuada eu libero a dictum. Suspendisse lobortis efficitur scelerisque. Sed sodales vulputate felis quis pharetra. Mauris et fringilla arcu, id cursus quam. Mauris faucibus a sapien sed ullamcorper.</p>
-	<p>Etiam convallis commodo libero, vel rhoncus purus ultricies at. Vivamus non ipsum eu elit vehicula venenatis. Etiam faucibus vel erat a auctor. Proin in magna et quam ornare porttitor. Etiam tincidunt semper diam, et tempus mi pretium non. In hac habitasse platea dictumst. Curabitur porttitor pharetra sapien, non convallis lectus cursus in. Mauris pretium risus ac diam malesuada, et dignissim risus eleifend. Duis eu dapibus purus. Duis eget quam imperdiet, commodo urna ut, sollicitudin quam.</p>
-	
+		<p>Mantente atento a las actualizaciones!!!</p>
+		<p>Pronto tendremos un dashboard con tus tareas pendientes para que puedas dar un servicio mas eficiente.</p>
+	{% else %}
+		<h3>Tienes un Usuario?</h3>
+		<p>Perfecto, por que no <a href="{{ path('login') }}">Accedes al Sistema</a>.</p>
+
+		<h3>Aún no tienes un Usuario?</h3>
+		<p>Que esperas? <a href="{{ path('crear_usuario') }}">Registrate</a></p>
+	{% endif %}
 {% endblock %}

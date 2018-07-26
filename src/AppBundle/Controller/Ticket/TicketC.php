@@ -66,10 +66,14 @@ class TicketC extends Controller {
         $ticket = new Ticket();
         $ticket->setFechaCreado(new \DateTime());
         $ticket->setEstado("PENDIENTE");
+        $ticket->setUsuario($this->getUser()->getId());
+//        $logueado = $this->getUser()->getId();
+//        var_dump($logueado);
+
         $form = $this->createFormBuilder($ticket)
-            ->add('usuario', ChoiceType::class, array(
+/*            ->add('usuario', ChoiceType::class, array(
                 'choices' => $normal
-            ))
+            ))*/
             ->add('descripcion', TextType::class)
 //            ->add('fecha_creado', TextType::class)
             ->add('usuarioAsignadoId', ChoiceType::class, array(

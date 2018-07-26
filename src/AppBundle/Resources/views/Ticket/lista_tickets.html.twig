@@ -32,10 +32,15 @@
 			<td class="estado">{{ticket.estado}}</td>
 			<td class="acciones">
 				<a type="button" class="btn btn-primary" href="{{ path('ticket_info', { 'id' : ticket.id }) }}">Ver</a>
-				<a type="button" class="btn btn-danger" href="{{ path('eliminar_ticket', { 'id' : ticket.id }) }}">Eliminar</a>
-				{% if ticket.estado != 'LISTO' %}
-					<a type="button" class="btn btn-success" href="{{ path('iniciar_ticket', { 'id' : ticket.id }) }}">Actualizar Ticket</a>
+				{% if app.user.id == ticket.usuario or app.user.id == ticket.usuarioasignadoid  or app.user.username == 'main' %}
+					<a type="button" class="btn btn-danger" href="{{ path('eliminar_ticket', { 'id' : ticket.id }) }}">Eliminar</a>
                 {% endif %}
+					{% if ticket.estado != 'LISTO' %}
+                        {% if app.user.id == ticket.usuario or app.user.id == ticket.usuarioasignadoid or app.user.username == 'main' %}
+							<a type="button" class="btn btn-success" href="{{ path('iniciar_ticket', { 'id' : ticket.id }) }}">Actualizar Ticket</a>
+						{% endif %}
+					{% endif %}
+
 				{#<a type="button" class="btn btn-warning" href="{{ path('iniciar_ticket', { 'id' : ticket.id }) }}">Iniciar</a>#}
 			</td>
 		</tr>

@@ -59,33 +59,53 @@ class __TwigTemplate_e30341c9d15f6347dcf6e5a6ede3f49db3a552388e78f8dfa7dd6cd16c0
     ";
         }
         // line 7
-        echo "
-    <form action=\"";
+        echo "    ";
         // line 8
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("login");
-        echo "\" method=\"post\">
-        <label for=\"username\">Username:</label>
-        <input type=\"text\" id=\"username\" name=\"_username\" value=\"";
-        // line 10
-        echo twig_escape_filter($this->env, (isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new Twig_Error_Runtime('Variable "last_username" does not exist.', 10, $this->source); })()), "html", null, true);
+        echo "
+    <h1>TaskApp System _Alpha</h1>
+    <hr />
+    <br />
+    <br />
+
+    <div class=\"container\">
+
+        <div class=\"row\" id=\"pwd-container\">
+            <div class=\"col-md-4\"></div>
+
+            <div class=\"col-md-4\">
+                <section class=\"login-form\">
+                    <form method=\"post\" action=\"#\" role=\"login\">
+                        <input type=\"text\" id=\"username\" name=\"_username\" placeholder=\"Username\" required class=\"form-control input-lg\" value=\"";
+        // line 22
+        echo twig_escape_filter($this->env, (isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new Twig_Error_Runtime('Variable "last_username" does not exist.', 22, $this->source); })()), "html", null, true);
         echo "\" />
 
-        <label for=\"password\">Password:</label>
-        <input type=\"password\" id=\"password\" name=\"_password\" />
+                        <input type=\"password\" class=\"form-control input-lg\" id=\"password\" name=\"_password\" placeholder=\"Password\" required=\"\" />
 
-        ";
-        // line 20
-        echo "        ";
-        // line 21
-        echo "        <input type=\"hidden\" name=\"_target_path\" value=\"/\" />
+                        <div class=\"pwstrength_viewport_progress\"></div>
 
-        <button type=\"submit\" class=\"btn btn-success\">login</button>
-    </form>
+                        <input type=\"hidden\" name=\"_target_path\" value=\"/\" />
 
-    <a type=\"button\" class=\"btn btn-primary\" href=\"";
-        // line 26
+
+                        <button type=\"submit\" name=\"go\" class=\"btn btn-lg btn-primary btn-block\">Sign in</button>
+                        <div class=\"registrate\">
+                          Aún no tienes una cuenta? <a href=\"";
+        // line 33
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("crear_usuario");
         echo "\">Registrate</a>
+                        </div>
+
+                    </form>
+                </section>
+            </div>
+
+            <div class=\"col-md-4\"></div>
+
+        </div>
+
+
+
+    </div>
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -107,7 +127,7 @@ class __TwigTemplate_e30341c9d15f6347dcf6e5a6ede3f49db3a552388e78f8dfa7dd6cd16c0
 
     public function getDebugInfo()
     {
-        return array (  87 => 26,  80 => 21,  78 => 20,  70 => 10,  65 => 8,  62 => 7,  56 => 5,  53 => 4,  44 => 3,  15 => 1,);
+        return array (  94 => 33,  80 => 22,  64 => 8,  62 => 7,  56 => 5,  53 => 4,  44 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -118,26 +138,46 @@ class __TwigTemplate_e30341c9d15f6347dcf6e5a6ede3f49db3a552388e78f8dfa7dd6cd16c0
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+    {#{% block menu_log %}class=\"active\"{% endblock %}#}
 
-    <form action=\"{{ path('login') }}\" method=\"post\">
-        <label for=\"username\">Username:</label>
-        <input type=\"text\" id=\"username\" name=\"_username\" value=\"{{ last_username }}\" />
+    <h1>TaskApp System _Alpha</h1>
+    <hr />
+    <br />
+    <br />
 
-        <label for=\"password\">Password:</label>
-        <input type=\"password\" id=\"password\" name=\"_password\" />
+    <div class=\"container\">
 
-        {#
-            If you want to control the URL the user
-            is redirected to on success (more details below)
-            <input type=\"hidden\" name=\"_target_path\" value=\"/account\" />
-        #}
-        {#<p>{{ app.user }}</p>#}
-        <input type=\"hidden\" name=\"_target_path\" value=\"/\" />
+        <div class=\"row\" id=\"pwd-container\">
+            <div class=\"col-md-4\"></div>
 
-        <button type=\"submit\" class=\"btn btn-success\">login</button>
-    </form>
+            <div class=\"col-md-4\">
+                <section class=\"login-form\">
+                    <form method=\"post\" action=\"#\" role=\"login\">
+                        <input type=\"text\" id=\"username\" name=\"_username\" placeholder=\"Username\" required class=\"form-control input-lg\" value=\"{{ last_username }}\" />
 
-    <a type=\"button\" class=\"btn btn-primary\" href=\"{{ path('crear_usuario') }}\">Registrate</a>
+                        <input type=\"password\" class=\"form-control input-lg\" id=\"password\" name=\"_password\" placeholder=\"Password\" required=\"\" />
+
+                        <div class=\"pwstrength_viewport_progress\"></div>
+
+                        <input type=\"hidden\" name=\"_target_path\" value=\"/\" />
+
+
+                        <button type=\"submit\" name=\"go\" class=\"btn btn-lg btn-primary btn-block\">Sign in</button>
+                        <div class=\"registrate\">
+                          Aún no tienes una cuenta? <a href=\"{{ path('crear_usuario') }}\">Registrate</a>
+                        </div>
+
+                    </form>
+                </section>
+            </div>
+
+            <div class=\"col-md-4\"></div>
+
+        </div>
+
+
+
+    </div>
 {% endblock %}", "@App/Usuario/Security/login.html.twig", "/var/www/mescyt/taskapp/src/AppBundle/Resources/views/Usuario/Security/login.html.twig");
     }
 }

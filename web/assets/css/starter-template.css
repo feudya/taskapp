@@ -102,3 +102,9 @@ form > div {
 	max-width: 50%;
 	float: left;
 }
+
+.registrate {
+	text-align: center;
+	width: 100%;
+	margin-top: 20px;
+}

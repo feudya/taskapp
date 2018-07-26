@@ -150,22 +150,34 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
             // line 34
             echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("ticket_info", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()))), "html", null, true);
             echo "\">Ver</a>
-\t\t\t\t<a type=\"button\" class=\"btn btn-danger\" href=\"";
-            // line 35
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("eliminar_ticket", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()))), "html", null, true);
-            echo "\">Eliminar</a>
 \t\t\t\t";
-            // line 36
-            if ((twig_get_attribute($this->env, $this->source, $context["ticket"], "estado", array()) != "LISTO")) {
-                // line 37
-                echo "\t\t\t\t\t<a type=\"button\" class=\"btn btn-success\" href=\"";
-                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("iniciar_ticket", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()))), "html", null, true);
-                echo "\">Actualizar Ticket</a>
+            // line 35
+            if ((((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 35, $this->source); })()), "user", array()), "id", array()) == twig_get_attribute($this->env, $this->source, $context["ticket"], "usuario", array())) || (twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 35, $this->source); })()), "user", array()), "id", array()) == twig_get_attribute($this->env, $this->source, $context["ticket"], "usuarioasignadoid", array()))) || (twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 35, $this->source); })()), "user", array()), "username", array()) == "main"))) {
+                // line 36
+                echo "\t\t\t\t\t<a type=\"button\" class=\"btn btn-danger\" href=\"";
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("eliminar_ticket", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()))), "html", null, true);
+                echo "\">Eliminar</a>
                 ";
             }
-            // line 39
-            echo "\t\t\t\t";
-            // line 40
+            // line 38
+            echo "\t\t\t\t\t";
+            if ((twig_get_attribute($this->env, $this->source, $context["ticket"], "estado", array()) != "LISTO")) {
+                // line 39
+                echo "                        ";
+                if ((((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 39, $this->source); })()), "user", array()), "id", array()) == twig_get_attribute($this->env, $this->source, $context["ticket"], "usuario", array())) || (twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 39, $this->source); })()), "user", array()), "id", array()) == twig_get_attribute($this->env, $this->source, $context["ticket"], "usuarioasignadoid", array()))) || (twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 39, $this->source); })()), "user", array()), "username", array()) == "main"))) {
+                    // line 40
+                    echo "\t\t\t\t\t\t\t<a type=\"button\" class=\"btn btn-success\" href=\"";
+                    echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("iniciar_ticket", array("id" => twig_get_attribute($this->env, $this->source, $context["ticket"], "id", array()))), "html", null, true);
+                    echo "\">Actualizar Ticket</a>
+\t\t\t\t\t\t";
+                }
+                // line 42
+                echo "\t\t\t\t\t";
+            }
+            // line 43
+            echo "
+\t\t\t\t";
+            // line 45
             echo "\t\t\t</td>
 \t\t</tr>
 \t";
@@ -173,7 +185,7 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['ticket'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 43
+        // line 48
         echo "\t</table>
 ";
         
@@ -196,7 +208,7 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
 
     public function getDebugInfo()
     {
-        return array (  177 => 43,  169 => 40,  167 => 39,  161 => 37,  159 => 36,  155 => 35,  151 => 34,  145 => 32,  139 => 30,  135 => 28,  133 => 27,  128 => 25,  124 => 24,  120 => 23,  117 => 22,  113 => 21,  110 => 20,  95 => 7,  91 => 5,  82 => 4,  64 => 3,  46 => 2,  15 => 1,);
+        return array (  189 => 48,  181 => 45,  178 => 43,  175 => 42,  169 => 40,  166 => 39,  163 => 38,  157 => 36,  155 => 35,  151 => 34,  145 => 32,  139 => 30,  135 => 28,  133 => 27,  128 => 25,  124 => 24,  120 => 23,  117 => 22,  113 => 21,  110 => 20,  95 => 7,  91 => 5,  82 => 4,  64 => 3,  46 => 2,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -235,10 +247,15 @@ class __TwigTemplate_7c07548fe4cf698993bb5c1ff0878bc51d6fdb6e5bad26c0b61fc50d3a8
 \t\t\t<td class=\"estado\">{{ticket.estado}}</td>
 \t\t\t<td class=\"acciones\">
 \t\t\t\t<a type=\"button\" class=\"btn btn-primary\" href=\"{{ path('ticket_info', { 'id' : ticket.id }) }}\">Ver</a>
-\t\t\t\t<a type=\"button\" class=\"btn btn-danger\" href=\"{{ path('eliminar_ticket', { 'id' : ticket.id }) }}\">Eliminar</a>
-\t\t\t\t{% if ticket.estado != 'LISTO' %}
-\t\t\t\t\t<a type=\"button\" class=\"btn btn-success\" href=\"{{ path('iniciar_ticket', { 'id' : ticket.id }) }}\">Actualizar Ticket</a>
+\t\t\t\t{% if app.user.id == ticket.usuario or app.user.id == ticket.usuarioasignadoid  or app.user.username == 'main' %}
+\t\t\t\t\t<a type=\"button\" class=\"btn btn-danger\" href=\"{{ path('eliminar_ticket', { 'id' : ticket.id }) }}\">Eliminar</a>
                 {% endif %}
+\t\t\t\t\t{% if ticket.estado != 'LISTO' %}
+                        {% if app.user.id == ticket.usuario or app.user.id == ticket.usuarioasignadoid or app.user.username == 'main' %}
+\t\t\t\t\t\t\t<a type=\"button\" class=\"btn btn-success\" href=\"{{ path('iniciar_ticket', { 'id' : ticket.id }) }}\">Actualizar Ticket</a>
+\t\t\t\t\t\t{% endif %}
+\t\t\t\t\t{% endif %}
+
 \t\t\t\t{#<a type=\"button\" class=\"btn btn-warning\" href=\"{{ path('iniciar_ticket', { 'id' : ticket.id }) }}\">Iniciar</a>#}
 \t\t\t</td>
 \t\t</tr>

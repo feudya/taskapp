@@ -28,8 +28,18 @@
 					</div>
 					<div id="navbar" class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
+							{% if app.user %}
+							{% if app.user.username == 'main' %}
 							<li {% block menu_usuario %}{% endblock %}><a href="{{ path('lista_usuarios') }}">Usuarios</a></li>
+							{% else %}
+								<li {% block menu_miusuario %}{% endblock %}><a href="{{ path('editar_usuario', { 'id' : app.user.id }) }}">Editar mis datos</a></li>
+								{#<a type="button" class="btn btn-primary" href="{{ path('editar_usuario', { 'id' : app.user.id }) }}">Editar mis datos</a>#}
+							{% endif %}
 							<li {% block menu_ticket %}{% endblock %}><a href="{{ path('lista_tickets')}}">Tickets</a></li>
+							<li {% block menu_cerrar %}{% endblock %}><a href="{{ path('logout')}}">Cerrar Sesión</a></li>
+							{% else %}
+								<li {% block menu_log %}{% endblock %}><a href="{{ path('login')}}">Accede al Sistema</a></li>
+							{% endif %}
 						</ul>
 						</div><!--/.nav-collapse -->
 					</div>
