@@ -17,10 +17,11 @@
             is redirected to on success (more details below)
             <input type="hidden" name="_target_path" value="/account" />
         #}
-
         {#<p>{{ app.user }}</p>#}
         <input type="hidden" name="_target_path" value="/" />
 
-        <button type="submit">login</button>
+        <button type="submit" class="btn btn-success">login</button>
     </form>
+
+    <a type="button" class="btn btn-primary" href="{{ path('crear_usuario') }}">Registrate</a>
 {% endblock %}

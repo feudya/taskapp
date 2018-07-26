@@ -75,13 +75,17 @@ class __TwigTemplate_e30341c9d15f6347dcf6e5a6ede3f49db3a552388e78f8dfa7dd6cd16c0
 
         ";
         // line 20
-        echo "
-        ";
-        // line 22
+        echo "        ";
+        // line 21
         echo "        <input type=\"hidden\" name=\"_target_path\" value=\"/\" />
 
-        <button type=\"submit\">login</button>
+        <button type=\"submit\" class=\"btn btn-success\">login</button>
     </form>
+
+    <a type=\"button\" class=\"btn btn-primary\" href=\"";
+        // line 26
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("crear_usuario");
+        echo "\">Registrate</a>
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -103,7 +107,7 @@ class __TwigTemplate_e30341c9d15f6347dcf6e5a6ede3f49db3a552388e78f8dfa7dd6cd16c0
 
     public function getDebugInfo()
     {
-        return array (  81 => 22,  78 => 20,  70 => 10,  65 => 8,  62 => 7,  56 => 5,  53 => 4,  44 => 3,  15 => 1,);
+        return array (  87 => 26,  80 => 21,  78 => 20,  70 => 10,  65 => 8,  62 => 7,  56 => 5,  53 => 4,  44 => 3,  15 => 1,);
     }
 
     public function getSourceContext()
@@ -127,12 +131,13 @@ class __TwigTemplate_e30341c9d15f6347dcf6e5a6ede3f49db3a552388e78f8dfa7dd6cd16c0
             is redirected to on success (more details below)
             <input type=\"hidden\" name=\"_target_path\" value=\"/account\" />
         #}
-
         {#<p>{{ app.user }}</p>#}
         <input type=\"hidden\" name=\"_target_path\" value=\"/\" />
 
-        <button type=\"submit\">login</button>
+        <button type=\"submit\" class=\"btn btn-success\">login</button>
     </form>
+
+    <a type=\"button\" class=\"btn btn-primary\" href=\"{{ path('crear_usuario') }}\">Registrate</a>
 {% endblock %}", "@App/Usuario/Security/login.html.twig", "/var/www/mescyt/taskapp/src/AppBundle/Resources/views/Usuario/Security/login.html.twig");
     }
 }

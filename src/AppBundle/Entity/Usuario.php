@@ -49,7 +49,7 @@ class Usuario implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="contrasena", type="string", length=25, nullable=true)
+     * @ORM\Column(name="contrasena", type="string", length=255, nullable=true)
      */
     private $contrasena;
 
