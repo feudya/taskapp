@@ -6,12 +6,14 @@
 {% block body %}
     <h1>Informacion de Ticket</h1>
     <div class="subheader">
+        {% if app.user.id == ticket.usuarioasignadoid or app.user.username == 'main' %}
         {% if ticket.estado == 'EN_PROCESO' %}
             <a type="button" class="btn btn-success" onclick="cambiarEstado('LISTO')">Completar Ticket</a>
         {% elseif ticket.estado == 'LISTO' %}
             <span class="alert-success">Ticket Completado!</span>
         {% else %}
             <a type="button" class="btn btn-success" onclick="cambiarEstado('EN_PROCESO')">Iniciar Ticket</a>
+        {% endif %}
         {% endif %}
         <a type="button" class="btn btn-primary" href="{{ path('lista_tickets') }}">Volver</a>
     </div>
@@ -84,7 +86,7 @@
         </div>
     </div>
     <input type="hidden" value="{{ ticket.id }}" id="id">
-    <input type="hidden" value="{{ ticket.usuarioAsignadoId }}" id="ua">
+    <input type="hidden" value="{{ app.user.id }}" id="ua">
     <script>
         function cambiarEstado(nuevoEstado) {
 
